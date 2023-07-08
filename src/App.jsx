@@ -1,5 +1,5 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/Common/Header";
+import Footer from "./components/Common/Footer";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
     </>
   );
 }
