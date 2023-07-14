@@ -4,16 +4,20 @@ import kartonCanta from "../../assets/img/karton-canta.png";
 import taslamaliKutu from "../../assets/img/taslamalikutu.png";
 import ondule from "../../assets/img/mastkutu.png";
 import katalog from "../../assets/img/katalog.png";
+import { motion } from "framer-motion";
 
 export default function Categories() {
   return (
     <>
-      <div className="categories py-5">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="categories py-5"
+      >
         <div className="container">
           <div className="title mb-5">
-            <h2 className="text-center display-6 mb-4">
-              Ürün Kategorilerimiz
-            </h2>
+            <h2 className="text-center display-6 mb-4">Ürün Kategorilerimiz</h2>
           </div>
           <div className="row d-flex justify-content-between">
             <div className="category-box col-6 col-lg-2 d-flex flex-column justify-content-center align-items-center">
@@ -52,7 +56,7 @@ export default function Categories() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

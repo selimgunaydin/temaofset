@@ -11,13 +11,17 @@ import Showcase from "../components/Home/Showcase";
 
 export default function Home() {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <HomeCarousel />
-      <Categories/>
-      <About/>
+      <Categories />
+      <About />
       {/* <Showcase/> */}
-      <References/>
-      <Location/>
-    </>
+      <References />
+      <Location />
+    </motion.div>
   );
 }

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -17,7 +18,12 @@ export default function About() {
 
   return (
     <>
-      <div className="about py-5">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="about py-5"
+      >
         <div className="container px-5">
           <div className="row">
             <div className="about-left col-12 col-lg-6 order-lg-1 order-2">
@@ -50,7 +56,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

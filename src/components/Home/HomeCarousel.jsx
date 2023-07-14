@@ -1,10 +1,29 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
 import shapeMask from "../../assets/img/shape-mask.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomeCarousel() {
   return (
     <>
+      <button
+        onClick={() => {
+          window.scrollTo({
+            top: 800,
+            behavior: "smooth",
+          });
+        }}
+        className="scroll-down d-none d-lg-block"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+        ></svg>
+      </button>
       <Carousel fade interval={2000} controls={false}>
         <Carousel.Item>
           <div className="shape">
@@ -18,7 +37,7 @@ export default function HomeCarousel() {
           <Carousel.Caption>
             <h3 className="mb-4">Lorem ipsum</h3>
             <p className="mb-4 w-100">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
           </Carousel.Caption>
         </Carousel.Item>

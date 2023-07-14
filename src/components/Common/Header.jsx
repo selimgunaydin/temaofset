@@ -3,11 +3,31 @@ import logoWhite from "../../assets/img/logo_white.svg";
 import logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faTimesCircle,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { generalStore } from "../../store/generalStore";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Header() {
+  const { getOptions, options } = generalStore();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState("");
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+  useEffect(() => {
+    getOptions();
+  }, []);
 
   function handleMobileMenu() {
     if (mobileMenuIsOpen == "") {
@@ -18,43 +38,73 @@ export default function Header() {
   }
   return (
     <>
-      <div className="header shadow-sm d-none d-lg-block">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="header shadow-sm d-none d-lg-block"
+      >
         <div className="container">
           <div className="d-flex align-items-center py-3">
-            <div className="header-left col-4">
+            <div className="header-left col-3">
               <div className="logo">
-                <Link to="#" href="#">
+                <Link to="/">
                   <img src={logo} alt="logo" height="60px" />
                 </Link>
               </div>
             </div>
-            <div className="header-middle col-4">
+            <div className="header-middle col-6">
               <ul className="d-flex list-unstyled justify-content-center align-items-center mb-0">
                 <li className="ms-4">
-                  <Link to="#" className="text-decoration-none fw-semibold">
+                  <Link to="#" className="fw-semibold">
                     Ana Sayfa
                   </Link>
                 </li>
-                <li className="ms-4">
-                  <Link to="#" className="text-decoration-none fw-semibold">
+                <li className="ms-4 products">
+                  <Link to="#" className="fw-semibold">
                     Ürünler
+                    <FontAwesomeIcon icon={faChevronDown} className="ms-2 dropdown-arrow" />
                   </Link>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="dropdown"
+                  >
+                    <ul className="list-unstyled">
+                      <li>
+                        <a href="#">Karton Ambalaj</a>
+                      </li>
+                      <li>
+                        <a href="#">Mikro Ondüle Sıvamalı Ambalaj</a>
+                      </li>
+                      <li>
+                        <a href="#">Karton Çanta</a>
+                      </li>
+                      <li>
+                        <a href="#">Taslamalı Ambalaj</a>
+                      </li>
+                      <li>
+                        <a href="#">Broşür ve Katalog</a>
+                      </li>
+                    </ul>
+                  </motion.div>
                 </li>
                 <li className="ms-4">
-                  <Link to="#" className="text-decoration-none fw-semibold">
+                  <Link to="#" className="fw-semibold">
                     Hakkımızda
                   </Link>
                 </li>
                 <li className="ms-4">
-                  <Link to="#" className="text-decoration-none fw-semibold">
+                  <Link to="/contact" className="fw-semibold">
                     İletişim
                   </Link>
                 </li>
               </ul>
             </div>
-            <div className="col-4 header-right">
+            <div className="col-3 header-right">
               <div className="d-flex ms-5 align-items-center justify-content-end">
-                <Link to="#" className="text-decoration-none fw-semibold">
+                <Link to="/contact" className="fw-semibold">
                   <button className="btn btn-dark rounded-3 px-4">
                     Teklif Alın
                   </button>
@@ -63,15 +113,15 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <div className="d-lg-none bg-white">
         <div className="navbar-mobile container-fluid ">
           <div className="row align-items-center justify-content-center">
             <div className="col-6">
               <div className="logo">
-                <a href="#" className="text-decoration-none">
+                <Link to="/">
                   <img src={logo} alt="logo" width="200px" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-6">
@@ -92,7 +142,7 @@ export default function Header() {
       >
         <div className="d-flex w-100 justify-content-between align-items-center mb-5">
           <div className="logo ms-4">
-            <a href="#" className="text-decoration-none display-6 ">
+            <a href="#" className="display-6 ">
               <img src={logoWhite} alt="logo" width="200px" />
             </a>
           </div>
@@ -108,7 +158,7 @@ export default function Header() {
               <a
                 onClick={handleMobileMenu}
                 href="#"
-                className="text-decoration-none text-white fw-semibold text-uppercase"
+                className="text-white fw-semibold text-uppercase"
               >
                 Ana Sayfa
               </a>
@@ -117,7 +167,7 @@ export default function Header() {
               <a
                 onClick={handleMobileMenu}
                 href="#"
-                className="d-flex justify-content-between w-100 align-items-center text-decoration-none text-white fw-semibold text-uppercase"
+                className="d-flex justify-content-between w-100 align-items-center text-white fw-semibold text-uppercase"
               >
                 Ürünler
               </a>
@@ -126,19 +176,19 @@ export default function Header() {
               <a
                 onClick={handleMobileMenu}
                 href="#"
-                className="text-decoration-none text-white fw-semibold text-uppercase"
+                className="text-white fw-semibold text-uppercase"
               >
                 Hakkımızda
               </a>
             </li>
             <li className="mb-3 pb-3 d-flex align-items-center">
-              <a
+              <Link
                 onClick={handleMobileMenu}
-                href="#"
-                className="text-decoration-none text-white fw-semibold text-uppercase"
+                to="/contact"
+                className="text-white fw-semibold text-uppercase"
               >
                 İLETİŞİM
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
