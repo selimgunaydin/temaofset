@@ -1,6 +1,4 @@
 import React from "react";
-import logoWhite from "../../assets/img/logo_white.svg";
-import logo from "../../assets/img/logo.svg";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,9 +13,12 @@ import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function Header() {
-  const { getOptions, options } = generalStore();
+  const { getOptions, getCategories, categories, options } = generalStore();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState("");
   const { pathname } = useLocation();
+  const [mobileMenuDropdown, setMobileMenuDropdown] = useState("d-none")
+
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -27,9 +28,11 @@ export default function Header() {
 
   useEffect(() => {
     getOptions();
+    getCategories();
   }, []);
 
   function handleMobileMenu() {
+    setMobileMenuDropdown("d-none")
     if (mobileMenuIsOpen == "") {
       setMobileMenuIsOpen("active");
     } else {
@@ -45,16 +48,23 @@ export default function Header() {
         className="header shadow-sm d-none d-lg-block"
       >
         <div className="container">
-          <div className="d-flex align-items-center py-3">
+          <div className="d-flex align-items-center py-4">
             <div className="header-left col-3">
               <div className="logo">
                 <Link to="/">
-                  <img src={logo} alt="logo" height="60px" />
+                  <img
+                    src={
+                      options &&
+                      `http://api.temaofset.online/api/Files/${options.logo}`
+                    }
+                    alt="logo"
+                    height="50px"
+                  />
                 </Link>
               </div>
             </div>
-            <div className="header-middle col-6">
-              <ul className="d-flex list-unstyled justify-content-center align-items-center mb-0">
+            <div className="header-middle col-9">
+              <ul className="d-flex list-unstyled justify-content-end align-items-center mb-0">
                 <li className="ms-4">
                   <Link to="#" className="fw-semibold">
                     Ana Sayfa
@@ -63,7 +73,10 @@ export default function Header() {
                 <li className="ms-4 products">
                   <Link to="#" className="fw-semibold">
                     Ürünler
-                    <FontAwesomeIcon icon={faChevronDown} className="ms-2 dropdown-arrow" />
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className="ms-2 dropdown-arrow"
+                    />
                   </Link>
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -72,21 +85,16 @@ export default function Header() {
                     className="dropdown"
                   >
                     <ul className="list-unstyled">
-                      <li>
-                        <a href="#">Karton Ambalaj</a>
-                      </li>
-                      <li>
-                        <a href="#">Mikro Ondüle Sıvamalı Ambalaj</a>
-                      </li>
-                      <li>
-                        <a href="#">Karton Çanta</a>
-                      </li>
-                      <li>
-                        <a href="#">Taslamalı Ambalaj</a>
-                      </li>
-                      <li>
-                        <a href="#">Broşür ve Katalog</a>
-                      </li>
+                      {categories &&
+                        categories.map((item, index) => {
+                          return (
+                            <li key={index}>
+                              <Link to={`/${item.defination}`}>
+                                {item.defination}
+                              </Link>
+                            </li>
+                          );
+                        })}
                     </ul>
                   </motion.div>
                 </li>
@@ -102,7 +110,7 @@ export default function Header() {
                 </li>
               </ul>
             </div>
-            <div className="col-3 header-right">
+            {/* <div className="col-3 header-right">
               <div className="d-flex ms-5 align-items-center justify-content-end">
                 <Link to="/contact" className="fw-semibold">
                   <button className="btn btn-dark rounded-3 px-4">
@@ -110,7 +118,7 @@ export default function Header() {
                   </button>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </motion.div>
@@ -120,7 +128,14 @@ export default function Header() {
             <div className="col-6">
               <div className="logo">
                 <Link to="/">
-                  <img src={logo} alt="logo" width="200px" />
+                  <img
+                    src={
+                      options &&
+                      `http://api.temaofset.online/api/Files/${options.logo}`
+                    }
+                    alt="logo"
+                    width="200px"
+                  />
                 </Link>
               </div>
             </div>
@@ -143,7 +158,14 @@ export default function Header() {
         <div className="d-flex w-100 justify-content-between align-items-center mb-5">
           <div className="logo ms-4">
             <a href="#" className="display-6 ">
-              <img src={logoWhite} alt="logo" width="200px" />
+              <img
+                src={
+                  options &&
+                  `http://api.temaofset.online/api/Files/${options.logoWhite}`
+                }
+                alt="logo"
+                width="200px"
+              />
             </a>
           </div>
           <div className="close-mobile-menu me-2">
@@ -165,12 +187,29 @@ export default function Header() {
             </li>
             <li className="mb-3 pb-3 d-flex align-items-center">
               <a
-                onClick={handleMobileMenu}
+                onClick={()=>mobileMenuDropdown=="d-none"?setMobileMenuDropdown("d-block"):setMobileMenuDropdown("d-none")}
                 href="#"
                 className="d-flex justify-content-between w-100 align-items-center text-white fw-semibold text-uppercase"
               >
                 Ürünler
+                <span>
+                  <FontAwesomeIcon icon={faChevronDown} />
+                </span>
               </a>
+            </li>
+            <li className={`${mobileMenuDropdown}`}>
+            <ul className="mb-3 pb-3">
+                {categories &&
+                  categories.map((item, index) => {
+                    return (
+                      <li key={index} className="py-2" onClick={handleMobileMenu}>
+                        <Link to={`/${item.defination}`} className="text-white">
+                          {item.defination}
+                        </Link>
+                      </li>
+                    );
+                  })}
+              </ul>
             </li>
             <li className="mb-3 pb-3 d-flex align-items-center">
               <a

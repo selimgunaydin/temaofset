@@ -31,22 +31,6 @@ export default function HomeCarousel() {
           </div>
           <img
             className="d-block w-100"
-            src="https://lh3.googleusercontent.com/drive-viewer/AITFw-y5Nxz_RnGYrV4B__pKshmU0d6yejTWRXLmbxI7S7S3bosqZ80W0dV7prlR2zCUo18hfCq7cfU08EMmWjEQ5RzTo6LR=s1600"
-            alt="Slider Image"
-          />
-          <Carousel.Caption>
-            <h3 className="mb-4">Lorem ipsum</h3>
-            <p className="mb-4 w-100">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="shape">
-            <img src={shapeMask} alt="mask" />
-          </div>
-          <img
-            className="d-block w-100"
             src="https://lh3.googleusercontent.com/drive-viewer/AITFw-yrZ4xNHEK541ntRptXpT2d3Ebupe_a4V-tIhV2ZFXbApRVsP4N2qH9muKxNt6dzhq_z7ecrZjUWsITbuan1Vja_0LAvw=s1600"
             alt="Slider Image"
           />
@@ -71,6 +55,22 @@ export default function HomeCarousel() {
             <p className="mb-4 w-100">
               Doloribus esse in nemo a aut vero quaerat facilis dicta veritatis
               ea, vitae suscipit corporis excepturi.
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <div className="shape">
+            <img src={shapeMask} alt="mask" />
+          </div>
+          <img
+            className="d-block w-100"
+            src="https://lh3.googleusercontent.com/drive-viewer/AITFw-y5Nxz_RnGYrV4B__pKshmU0d6yejTWRXLmbxI7S7S3bosqZ80W0dV7prlR2zCUo18hfCq7cfU08EMmWjEQ5RzTo6LR=s1600"
+            alt="Slider Image"
+          />
+          <Carousel.Caption>
+            <h3 className="mb-4">Lorem ipsum</h3>
+            <p className="mb-4 w-100">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
           </Carousel.Caption>
         </Carousel.Item>

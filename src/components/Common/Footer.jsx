@@ -1,9 +1,10 @@
 import React from "react";
-import logoWhite from "../../assets/img/logo_white.svg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { generalStore } from "../../store/generalStore";
 
 export default function Footer() {
+  const { options, categories } = generalStore();
   return (
     <>
       <motion.div
@@ -17,9 +18,12 @@ export default function Footer() {
             <div className="col-12 col-lg-6 my-2">
               <div className="logo d-flex">
                 <img
-                  src={logoWhite}
+                  src={
+                    options &&
+                    `http://api.temaofset.online/api/Files/${options.logoWhite}`
+                  }
                   alt="logo"
-                  height="100px"
+                  height="60px"
                   className="mb-3"
                 />
               </div>
@@ -52,31 +56,16 @@ export default function Footer() {
             <div className="col-6 col-lg-3 my-4">
               <h3 className="text-white fs-5 fw-semibold mb-3">Kategoriler</h3>
               <ul className="list-unstyled">
-                <li className="mb-2">
-                  <a href="#" className="text-secondary">
-                    Karton Ambalaj
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-secondary">
-                    Taslamalı Ambalaj
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-secondary">
-                    Mikro Ondüle Sıvamalı Ambalaj
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-secondary">
-                    Karton Çantalar
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a href="#" className="text-secondary">
-                    Broşür ve Kataloglar
-                  </a>
-                </li>
+                {categories &&
+                  categories.map((item, index) => {
+                    return (
+                      <li className="mb-2">
+                        <Link to={`/${item.defination}`} className="text-secondary">
+                          {item.defination}
+                        </Link>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </div>
