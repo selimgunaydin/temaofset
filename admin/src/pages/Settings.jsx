@@ -32,22 +32,6 @@ export default function Settings() {
       });
   }, []);
 
-  function getSettings(){
-    axios
-    .get(`http://api.temaofset.online/api/SiteOption`)
-    .then((response) => {
-      console.log(response.data);
-      setSettings(response.data);
-      setLogo(response.data.logo);
-      setAlternativeLogo(response.data.logoWhite);
-      setPhone(response.data.phoneNumber);
-      setEmail(response.data.email);
-      setAdress(response.data.adress);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -61,7 +45,7 @@ export default function Settings() {
     formData.append("SocialMediaLink", "aa");
 
     console.log(formData);
-    console.log(formData);
+
     var object = {};
     formData.forEach((value, key) => (object[key] = value));
     var json = JSON.stringify(object);
@@ -76,7 +60,9 @@ export default function Settings() {
         setInfo("Ayarlar başarıyla güncellendi");
         setVariant("success");
         setShow(true);
-        getSettings();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       })
       .catch((error) => {
         setInfo(error.message);
@@ -159,6 +145,7 @@ export default function Settings() {
                         name=""
                         id=""
                         onChange={handleLogo}
+                        accept="image/png"
                       />
                     </div>
                   </div>
@@ -182,6 +169,7 @@ export default function Settings() {
                         name=""
                         id=""
                         onChange={handleAlternativeLogo}
+                        accept="image/png"
                       />
                     </div>
                   </div>
