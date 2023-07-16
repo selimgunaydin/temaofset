@@ -1,0 +1,427 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import 'mixin';
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../../node_modules/bootstrap/scss/functions";
+
+
+$container-max-widths: (
+    sm: 540px,
+    md: 540px,
+    lg: 720px,
+    xl: 960px,
+    xxl: 1140px
+);
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/helpers";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../../node_modules/bootstrap/scss/utilities/api";
+
+$transition: all .2s linear;
+
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+
+    a {
+        text-decoration: none !important;
+    }
+
+    p {
+        margin-bottom: 0 !important;
+    }
+}
+
+//LOADER
+
+//custom mixins
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    transform: $transform;
+}
+
+@mixin animation($animation) {
+    -webkit-animation: $animation;
+    -moz-animation: $animation;
+    animation: $animation;
+}
+
+@mixin keyframes($name, $name1) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin opacity($opacity) {
+    -webkit-opacity: $opacity;
+    -moz-opacity: $opacity;
+    opacity: $opacity;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+//variables
+$size: 50px;
+$primary-color: #009fe3;
+
+//cube only
+.cube-folding {
+    width: $size;
+    height: $size;
+    display: inline-block;
+    @include transform(rotate(45deg));
+    font-size: 0;
+
+    span {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        @include transform(scale(1.1));
+        display: inline-block;
+
+        &::before {
+            content: "";
+            background-color: $primary-color;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            width: 25px;
+            height: 25px;
+            -moz-transform-origin: 100% 100%;
+            -ms-transform-origin: 100% 100%;
+            -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+            @include animation(folding 2.5s infinite linear both);
+        }
+    }
+
+    .leaf2 {
+        @include transform(rotateZ(90deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+            background-color: #e6007e
+        }
+    }
+
+    .leaf3 {
+        @include transform(rotateZ(270deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+            background-color: #ffed00;
+        }
+    }
+
+    .leaf4 {
+        @include transform(rotateZ(180deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+            background-color: #000
+        }
+    }
+}
+
+//animation
+@include keyframes(folding, folding animation) {
+
+    0%,
+    10% {
+        @include transform(perspective(140px) rotateX(-180deg));
+        @include opacity(0);
+    }
+
+    25%,
+    75% {
+        @include transform(perspective(140px) rotateX(0deg));
+        @include opacity(1);
+    }
+
+    90%,
+    100% {
+        @include transform(perspective(140px) rotateY(180deg));
+        @include opacity(0);
+    }
+}
+
+//with loading text and shadow
+.cube-wrapper {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -$size;
+    margin-left: -$size;
+    width: $size * 2;
+    height: $size * 2;
+    text-align: center;
+
+    //shadow
+    .loading {
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        display: block;
+        color: #000;
+        position: relative;
+        top: 25px;
+        z-index: 2;
+        @include animation(text 0.5s ease infinite alternate);
+    }
+}
+
+@include keyframes(text, text animation) {
+    100% {
+        top: 27.5px;
+    }
+}
+
+.loader-text {
+    margin-top: 200px;
+}
+
+//LOADER
+
+
+//LOGIN
+
+.login {
+    .login-page {
+        input {
+            padding: 10px;
+        }
+
+        .login-form {
+            width: 400px;
+        }
+
+        .register-form {
+            width: 400px;
+        }
+    }
+}
+
+//LOGIN
+
+//HEADER
+nav {
+    height: 100%;
+}
+
+.header {
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 290px;
+    min-height: 100vh;
+    background-color: #f2f2f2;
+    border-right: #dddddd 1px solid;
+    font-weight: 500;
+    color: #5a5a5a;
+    transition: $transition;
+
+    .logo {
+        cursor: pointer;
+    }
+
+    ul {
+        li {
+            border-radius: 8px;
+            transition: $transition;
+            cursor: pointer;
+
+            &:hover {
+                color: #000;
+                background-color: #e1e1e1;
+            }
+        }
+
+        .active {
+            color: #000;
+            background-color: #e1e1e1;
+        }
+    }
+
+
+    svg {
+        width: 20px;
+    }
+
+    .logout {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+.navbar-info {
+    width: 100%;
+    border-bottom: #dddddd 1px solid;
+
+    .title {
+        letter-spacing: 3px;
+        font-weight: 500;
+    }
+
+    .user-info {
+        cursor: pointer;
+
+        .info {
+            p {
+                font-size: 14px;
+            }
+
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+
+}
+
+//HEADER
+
+//SETTINGS
+
+.file-input {
+
+    input[type=file]::file-selector-button {
+        background-color: #fff;
+        color: #000;
+        border: 0px;
+        border-right: 1px solid #e5e5e5;
+        padding: 10px 15px;
+        margin-right: 20px;
+        transition: $transition
+    }
+
+    input[type=file]::file-selector-button:hover {
+        background-color: #eee;
+        border: 0px;
+        border-right: 1px solid #e5e5e5;
+    }
+}
+
+//SETTINGS
+
+//REFERENCES
+
+.references {
+    .reference-item {
+        position: relative;
+
+        &:hover {
+            .image-delete-button {
+                display: block;
+            }
+        }
+
+        .image-delete-button {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: $transition;
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 1024 1024' fill='%23000000' version='1.1' %3E%3Cpath d='M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z' fill='' /%3E%3Cpath d='M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z' fill='' /%3E%3Cpath d='M328 340.8l32-31.2 348 348-32 32z' fill='' /%3E%3C/svg%3E");
+        }
+    }
+}
+
+//REFERENCES
+
+//CATEGORIES & PRODUCTS
+
+.categories {
+    .category-box {
+        width: 200px;
+        height: 150px;
+        position: relative;
+
+        &:hover {
+            .image-delete-button {
+                display: block;
+            }
+        }
+
+        .image-delete-button {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: $transition;
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 1024 1024' fill='%23000000' version='1.1' %3E%3Cpath d='M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z' fill='' /%3E%3Cpath d='M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z' fill='' /%3E%3Cpath d='M328 340.8l32-31.2 348 348-32 32z' fill='' /%3E%3C/svg%3E");
+        }
+
+    }
+}
+
+.products{
+    .product-box{
+        width: 200px;
+        height: 150px;
+        position: relative;
+        &:hover {
+            .image-delete-button {
+                display: block;
+            }
+        }
+        .image-delete-button {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: $transition;
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 1024 1024' fill='%23000000' version='1.1' %3E%3Cpath d='M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z' fill='' /%3E%3Cpath d='M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z' fill='' /%3E%3Cpath d='M328 340.8l32-31.2 348 348-32 32z' fill='' /%3E%3C/svg%3E");
+        }
+    }
+}
+
+//CATEGORIES & PRODUCTS
