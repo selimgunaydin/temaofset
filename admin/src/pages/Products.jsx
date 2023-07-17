@@ -22,6 +22,9 @@ export default function Products() {
   const [productTitle, setProductTitle] = useState();
   const [productImages, setProductImages] = useState();
 
+  const [imageSource, setImageSource] = useState("");
+  const [imageSource2, setImageSource2] = useState("");
+
   useEffect(() => {
     axios
       .get(`http://api.temaofset.online/api/Categories`)
@@ -91,7 +94,15 @@ export default function Products() {
   }
 
   function handleCategoryImage(event) {
+    const file = event.target.files[0];
     setCategoryImage(event.target.files);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSource2(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   function handleModalClose() {
@@ -187,6 +198,14 @@ export default function Products() {
 
   function handleProductImage(event) {
     setProductImages(event.target.files);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSource(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   useEffect(() => {
@@ -217,8 +236,20 @@ export default function Products() {
               name=""
               id=""
               onChange={handleCategoryImage}
+              accept="image/png, image/jpg, image/jpeg"
             />
           </div>
+          {imageSource2 ? (
+            <div className="d-flex flex-column align-items-center">
+              <p className="text-center mb-2">Önizleme</p>
+              <img
+                src={imageSource2}
+                alt="logo"
+                width="100px"
+                className="border p-3 mb-3"
+              />
+            </div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -256,8 +287,20 @@ export default function Products() {
               name=""
               id=""
               onChange={handleProductImage}
+              accept="image/png, image/jpg, image/jpeg"
             />
           </div>
+          {imageSource ? (
+            <div className="d-flex flex-column align-items-center">
+              <p className="text-center mb-2">Önizleme</p>
+              <img
+                src={imageSource}
+                alt="logo"
+                width="100px"
+                className="border p-3 mb-3"
+              />
+            </div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
           <Button

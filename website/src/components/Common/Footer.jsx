@@ -37,14 +37,14 @@ export default function Footer() {
               </h3>
               <ul className="list-unstyled">
                 <li className="mb-2">
-                  <a href="#" className="text-secondary">
+                  <Link to="/" className="text-secondary">
                     Ana Sayfa
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
-                  <a href="#" className="text-secondary">
+                  <Link to="/about" className="text-secondary">
                     Hakkımızda
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-2">
                   <Link to="/contact" className="text-secondary">

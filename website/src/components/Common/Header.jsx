@@ -19,6 +19,8 @@ export default function Header() {
   const { pathname } = useLocation();
   const [mobileMenuDropdown, setMobileMenuDropdown] = useState("d-none");
 
+
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -55,7 +57,7 @@ export default function Header() {
                   <img
                     src={
                       options &&
-                      `http://api.temaofset.online/api/Files/${options.logo}`
+                      `http://api.temaofset.online/api/Files/${options.logoImage}`
                     }
                     alt="logo"
                     height="50px"
@@ -65,12 +67,14 @@ export default function Header() {
             </div>
             <div className="header-middle col-9">
               <ul className="d-flex list-unstyled justify-content-end align-items-center mb-0">
-                <li className="ms-5">
+                <li className={`ms-5 ${pathname == "/" ? "active" : null}`}>
                   <Link to="/" className="fw-semibold">
                     Ana Sayfa
                   </Link>
                 </li>
-                <li className="ms-5 products">
+                <li
+                  className={`ms-5 products`}
+                >
                   <Link to="#" className="fw-semibold">
                     Ürünler
                     <FontAwesomeIcon
@@ -98,12 +102,16 @@ export default function Header() {
                     </ul>
                   </motion.div>
                 </li>
-                <li className="ms-5">
-                  <Link to="#" className="fw-semibold">
+                <li
+                  className={`ms-5 ${pathname == "/about" ? "active" : null}`}
+                >
+                  <Link to="/about" className="fw-semibold">
                     Hakkımızda
                   </Link>
                 </li>
-                <li className="ms-5">
+                <li
+                  className={`ms-5 ${pathname == "/contact" ? "active" : null}`}
+                >
                   <Link to="/contact" className="fw-semibold">
                     İletişim
                   </Link>
@@ -131,7 +139,7 @@ export default function Header() {
                   <img
                     src={
                       options &&
-                      `http://api.temaofset.online/api/Files/${options.logo}`
+                      `http://api.temaofset.online/api/Files/${options.logoImage}`
                     }
                     alt="logo"
                     width="200px"
@@ -220,13 +228,13 @@ export default function Header() {
               </ul>
             </li>
             <li className="mb-3 pb-3 d-flex align-items-center">
-              <a
+              <Link
                 onClick={handleMobileMenu}
-                href="#"
+                to="/about"
                 className="text-white fw-semibold text-uppercase"
               >
                 Hakkımızda
-              </a>
+              </Link>
             </li>
             <li className="mb-3 pb-3 d-flex align-items-center">
               <Link

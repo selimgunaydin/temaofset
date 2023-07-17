@@ -35,7 +35,7 @@ export default function Login() {
       <div className="d-flex flex-column my-4 justify-content-center align-items-center">
         <img
           src={
-            options && `http://api.temaofset.online/api/Files/${options.logo}`
+            options && `http://api.temaofset.online/api/Files/${options.logoImage}`
           }
           alt="logo"
           width="250px"

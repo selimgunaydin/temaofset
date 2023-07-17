@@ -38,7 +38,7 @@ export default function Navbar() {
             <img
               src={
                 options &&
-                `http://api.temaofset.online/api/Files/${options.logo}`
+                `http://api.temaofset.online/api/Files/${options.logoImage}`
               }
               alt="logo"
               width="175px"

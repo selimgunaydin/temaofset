@@ -8,6 +8,7 @@ import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
 import Loader from "./pages/Loader";
 import { loaderStore } from "./store/generalStore";
+import About from "./pages/About";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/:defination" element={<Category />} />
           <Route path="*" element={<NotFound />} />

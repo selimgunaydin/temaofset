@@ -84,6 +84,11 @@ body {
                 }
             }
 
+            .active {
+                a {
+                    opacity: 1;
+                }
+            }
         }
 
         .contact-button {
@@ -156,7 +161,7 @@ body {
 }
 
 .navbar-mobile {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 21;
     background-color: white;
@@ -190,18 +195,20 @@ body {
     }
 
     .mobile-menu-links {
-        
+
         .list-unstyled {
             li {
-                ul{
+                ul {
                     padding-left: 12px;
                     margin-bottom: 0px !important;
-                    li{
-                        &:last-child{
+
+                    li {
+                        &:last-child {
                             border: none !important;
                         }
                     }
                 }
+
                 border-bottom: #515151 1px solid;
                 padding-top: 12px;
                 padding-bottom: 12px;
@@ -293,6 +300,7 @@ body {
         width: 200px;
         height: 150px;
         position: relative;
+
         img {
             transition: $transition;
         }
@@ -531,11 +539,11 @@ body {
 
 //CATEGORY
 
-.product-image{
+.product-image {
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
-    img{
+    img {
         border-radius: 4px;
         transition: $transition;
         width: 150px;
@@ -543,8 +551,8 @@ body {
         object-fit: cover;
     }
 
-    &:hover{
-        img{
+    &:hover {
+        img {
             transform: scale(1.03);
         }
     }
@@ -559,117 +567,135 @@ body {
     -webkit-transform: $transform;
     -moz-transform: $transform;
     transform: $transform;
-  }
-  @mixin animation($animation) {
+}
+
+@mixin animation($animation) {
     -webkit-animation: $animation;
     -moz-animation: $animation;
     animation: $animation;
-  }
-  @mixin keyframes($name, $name1) {
+}
+
+@mixin keyframes($name, $name1) {
     @-webkit-keyframes #{$name} {
-      @content;
+        @content;
     }
+
     @-moz-keyframes #{$name} {
-      @content;
+        @content;
     }
+
     @-ms-keyframes #{$name} {
-      @content;
+        @content;
     }
+
     @keyframes #{$name} {
-      @content;
+        @content;
     }
-  }
-  @mixin opacity($opacity) {
+}
+
+@mixin opacity($opacity) {
     -webkit-opacity: $opacity;
     -moz-opacity: $opacity;
     opacity: $opacity;
-  }
-  @mixin border-radius($radius) {
+}
+
+@mixin border-radius($radius) {
     -webkit-border-radius: $radius;
     -moz-border-radius: $radius;
     border-radius: $radius;
-  }
-  
-  //variables
-  $size: 50px;
-  $primary-color: #009fe3;
-  
-  //cube only
-  .cube-folding {
+}
+
+//variables
+$size: 50px;
+$primary-color: #009fe3;
+
+//cube only
+.cube-folding {
     width: $size;
     height: $size;
     display: inline-block;
     @include transform(rotate(45deg));
     font-size: 0;
+
     span {
-      position: relative;
-      width: 25px;
-      height: 25px;
-      @include transform(scale(1.1));
-      display: inline-block;
-      &::before {
-        content: "";
-        background-color: $primary-color;
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: block;
+        position: relative;
         width: 25px;
         height: 25px;
-        -moz-transform-origin: 100% 100%;
-        -ms-transform-origin: 100% 100%;
-        -webkit-transform-origin: 100% 100%;
-        transform-origin: 100% 100%;
-        @include animation(folding 2.5s infinite linear both);
-      }
+        @include transform(scale(1.1));
+        display: inline-block;
+
+        &::before {
+            content: "";
+            background-color: $primary-color;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            width: 25px;
+            height: 25px;
+            -moz-transform-origin: 100% 100%;
+            -ms-transform-origin: 100% 100%;
+            -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+            @include animation(folding 2.5s infinite linear both);
+        }
     }
+
     .leaf2 {
-      @include transform(rotateZ(90deg) scale(1.1));
-      &::before {
-        -webkit-animation-delay: 0.3s;
-        animation-delay: 0.3s;
-        background-color: #e6007e
-      }
+        @include transform(rotateZ(90deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+            background-color: #e6007e
+        }
     }
+
     .leaf3 {
-      @include transform(rotateZ(270deg) scale(1.1));
-      &::before {
-        -webkit-animation-delay: 0.9s;
-        animation-delay: 0.9s;
-        background-color: #ffed00;
-      }
+        @include transform(rotateZ(270deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.9s;
+            animation-delay: 0.9s;
+            background-color: #ffed00;
+        }
     }
+
     .leaf4 {
-      @include transform(rotateZ(180deg) scale(1.1));
-      &::before {
-        -webkit-animation-delay: 0.6s;
-        animation-delay: 0.6s;
-        background-color: #000
-      }
+        @include transform(rotateZ(180deg) scale(1.1));
+
+        &::before {
+            -webkit-animation-delay: 0.6s;
+            animation-delay: 0.6s;
+            background-color: #000
+        }
     }
-  }
-  
-  //animation
-  @include keyframes(folding, folding animation) {
+}
+
+//animation
+@include keyframes(folding, folding animation) {
+
     0%,
     10% {
-      @include transform(perspective(140px) rotateX(-180deg));
-      @include opacity(0);
+        @include transform(perspective(140px) rotateX(-180deg));
+        @include opacity(0);
     }
+
     25%,
     75% {
-      @include transform(perspective(140px) rotateX(0deg));
-      @include opacity(1);
+        @include transform(perspective(140px) rotateX(0deg));
+        @include opacity(1);
     }
+
     90%,
     100% {
-      @include transform(perspective(140px) rotateY(180deg));
-      @include opacity(0);
+        @include transform(perspective(140px) rotateY(180deg));
+        @include opacity(0);
     }
-  }
-  
-  //with loading text and shadow
-  .cube-wrapper {
+}
+
+//with loading text and shadow
+.cube-wrapper {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -678,29 +704,31 @@ body {
     width: $size * 2;
     height: $size * 2;
     text-align: center;
+
     //shadow
     .loading {
-      font-size: 16px;
-      letter-spacing: 0.1em;
-      display: block;
-      color: #000;
-      position: relative;
-      top: 25px;
-      z-index: 2;
-      @include animation(text 0.5s ease infinite alternate);
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        display: block;
+        color: #000;
+        position: relative;
+        top: 25px;
+        z-index: 2;
+        @include animation(text 0.5s ease infinite alternate);
     }
-  }
-  @include keyframes(text, text animation) {
+}
+
+@include keyframes(text, text animation) {
     100% {
-      top: 27.5px;
+        top: 27.5px;
     }
-  }
+}
 
-  .loader-text{
+.loader-text {
     margin-top: 200px;
-  }
+}
 
-  //LOADER
+//LOADER
 
 
 //LOGIN
@@ -720,3 +748,28 @@ body {
 }
 
 //LOGIN
+
+//CERTIFICATION
+
+
+//CERTIFICATION
+
+//ABOUT
+
+.about-page {
+    @media screen and (max-width:992px) {
+        margin-top: 100px;
+    }
+}
+
+//ABOUT
+
+//CONTACT
+
+.contact{
+    @media screen and (max-width:992px) {
+        margin-top: 125px;
+    }
+}
+
+//CONTACT

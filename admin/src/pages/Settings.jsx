@@ -14,14 +14,15 @@ export default function Settings() {
   const [phoneNumber, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [adress, setAdress] = useState("");
-
+  const [imageSource, setImageSource] = useState("");
+  const [imageSource2, setImageSource2] = useState("");
   useEffect(() => {
     axios
       .get(`http://api.temaofset.online/api/SiteOption`)
       .then((response) => {
         console.log(response.data);
         setSettings(response.data);
-        setLogo(response.data.logo);
+        setLogo(response.data.logoImage);
         setAlternativeLogo(response.data.logoWhite);
         setPhone(response.data.phoneNumber);
         setEmail(response.data.email);
@@ -31,7 +32,6 @@ export default function Settings() {
         console.log(error);
       });
   }, []);
-
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -75,24 +75,40 @@ export default function Settings() {
   function handleLogo(event) {
     event.preventDefault();
     setLogo(event.target.files);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSource(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
   function handleAlternativeLogo(event) {
     event.preventDefault();
     setAlternativeLogo(event.target.files);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSource2(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
+
   return (
     <>
-
       <div className="p-4">
         <h2 className="fs-3 header-title fw-semibold mb-4">Genel Ayarlar</h2>
         <Alert show={show} variant={variant}>
-        <Alert.Heading>{info}</Alert.Heading>
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => setShow(false)} variant={variant}>
-            Kapat
-          </Button>
-        </div>
-      </Alert>
+          <Alert.Heading>{info}</Alert.Heading>
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShow(false)} variant={variant}>
+              Kapat
+            </Button>
+          </div>
+        </Alert>
         <div className="row">
           <form className="d-flex row">
             <div className="col-12 pe-4">
@@ -132,12 +148,23 @@ export default function Settings() {
                     <img
                       src={
                         settings &&
-                        `http://api.temaofset.online/api/Files/${logo}`
+                        `http://api.temaofset.online/api/Files/${settings.logoImage}`
                       }
                       alt="logo"
                       width="100px"
                       className="border p-3 mb-3"
                     />
+                    {imageSource ? (
+                      <div>
+                        <p className="text-center">Önizleme</p>
+                        <img
+                          src={imageSource}
+                          alt="logo"
+                          width="100px"
+                          className="border p-3 mb-3"
+                        />
+                      </div>
+                    ) : null}
                     <div className="file-input mb-3">
                       <input
                         className="product-image-button btn ps-0 w-100 border rounded-3"
@@ -156,12 +183,23 @@ export default function Settings() {
                     <img
                       src={
                         settings &&
-                        `http://api.temaofset.online/api/Files/${alternativeLogo}`
+                        `http://api.temaofset.online/api/Files/${settings.logoWhite}`
                       }
                       alt="logo"
                       width="100px"
                       className="border p-3 mb-3 bg-black"
                     />
+                      {imageSource2 ? (
+                      <div>
+                        <p className="text-center">Önizleme</p>
+                        <img
+                          src={imageSource2}
+                          alt="logo"
+                          width="100px"
+                          className="border p-3 mb-3"
+                        />
+                      </div>
+                    ) : null}
                     <div className="file-input mb-3">
                       <input
                         className="product-image-button btn ps-0 w-100 border rounded-3"
@@ -185,6 +223,7 @@ export default function Settings() {
           </form>
         </div>
       </div>
+      <div></div>
     </>
   );
 }

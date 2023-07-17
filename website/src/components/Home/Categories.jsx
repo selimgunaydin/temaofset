@@ -18,7 +18,7 @@ export default function Categories() {
             <h2 className="text-center display-6 mb-4">Ürün Kategorilerimiz</h2>
           </div>
           <div className="d-flex justify-content-center">
-          <div className="row d-flex">
+          <div className="row d-flex justify-content-center">
           {categories &&
             categories.map((item, index) => {
               return (

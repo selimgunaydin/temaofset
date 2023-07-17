@@ -4,10 +4,10 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function About() {
+export default function About(props) {
   const [customerCount, setCustomerCount] = useState(200);
   const [projectCount, setProjectCount] = useState(200);
-  const [aboutInfo, setAboutInfo] = useState()
+  const [aboutInfo, setAboutInfo] = useState();
   useEffect(() => {
     setTimeout(() => {
       setCustomerCount(customerCount + 1);
@@ -21,7 +21,7 @@ export default function About() {
     axios
       .get(`http://api.temaofset.online/api/About`)
       .then((response) => {
-        setAboutInfo(response.data)
+        setAboutInfo(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -39,12 +39,16 @@ export default function About() {
         <div className="container px-5">
           <div className="row">
             <div className="about-left col-12 col-lg-6 order-lg-1 order-2">
-              <h1 className="mb-4 display-6">Hakkımızda</h1>
-              <p className="fw-semibold fs-5 mb-2">{aboutInfo&&aboutInfo.title}</p>
-              <p className="mb-4">
-                {aboutInfo&&aboutInfo.defination}
+              <h1 className="mb-4 display-6 border-start border-5 border-danger ps-3">Hakkımızda</h1>
+              <p className="fw-semibold fs-5 mb-2">
+                {aboutInfo && aboutInfo.title}
               </p>
-              <div className="happy-customers d-none d-lg-flex">
+              <p className="mb-4">{aboutInfo && aboutInfo.defination}</p>
+              <div
+                className={`happy-customers ${
+                  props.happyCustomers ? "d-lg-flex d-none" : "d-none"
+                }`}
+              >
                 <div className="fs-5 d-flex flex-column align-items-start w-100">
                   <p className="fw-semibold fs-3">+{projectCount}</p>
                   <p className="text-secondary">Tamamlanmış Proje</p>

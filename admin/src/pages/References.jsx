@@ -14,6 +14,7 @@ export default function References() {
   const [showModal, setShowModal] = useState(false);
   const [referenceImages, setReferenceImages] = useState([]);
   const [referenceLogo, setReferenceLogo] = useState(null);
+  const [imageSource, setImageSource] = useState("");
 
   useEffect(() => {
     axios
@@ -26,7 +27,7 @@ export default function References() {
       });
   }, []);
 
-  function getReferences(){
+  function getReferences() {
     axios
       .get("http://api.temaofset.online/api/Referances")
       .then((response) => {
@@ -52,7 +53,7 @@ export default function References() {
         setVariant("success");
         setShow(true);
         getReferences();
-        setShowModal(false)
+        setShowModal(false);
       })
       .catch((error) => {
         console.log(error);
@@ -64,6 +65,14 @@ export default function References() {
 
   function handleReference(event) {
     setReferenceLogo(event.target.files);
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSource(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   function handleModalClose() {
@@ -74,7 +83,7 @@ export default function References() {
     setShowModal(true);
   }
   function handleDelete(event) {
-    console.log(event.target.value)
+    console.log(event.target.value);
     axios
       .delete(
         `http://api.temaofset.online/api/Referances/${event.target.value}`
@@ -110,8 +119,20 @@ export default function References() {
               name=""
               id=""
               onChange={handleReference}
+              accept="image/png, image/jpg, image/jpeg"
             />
           </div>
+          {imageSource ? (
+            <div className="d-flex flex-column align-items-center">
+              <p className="text-center mb-2">Önizleme</p>
+              <img
+                src={imageSource}
+                alt="logo"
+                width="100px"
+                className="border p-3 mb-3"
+              />
+            </div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -167,8 +188,7 @@ export default function References() {
                   className="btn image-delete-button"
                   value={item.id}
                   onClick={(e) => handleDelete(e)}
-                >
-                </button>
+                ></button>
               </li>
             ))}
           </ul>
