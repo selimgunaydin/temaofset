@@ -20,7 +20,6 @@ export default function Settings() {
     axios
       .get(`http://api.temaofset.online/api/SiteOption`)
       .then((response) => {
-        console.log(response.data);
         setSettings(response.data);
         setLogo(response.data.logoImage);
         setAlternativeLogo(response.data.logoWhite);
@@ -44,12 +43,10 @@ export default function Settings() {
     formData.append("Adress", adress);
     formData.append("SocialMediaLink", "aa");
 
-    console.log(formData);
+    // var object = {};
+    // formData.forEach((value, key) => (object[key] = value));
+    // var json = JSON.stringify(object);
 
-    var object = {};
-    formData.forEach((value, key) => (object[key] = value));
-    var json = JSON.stringify(object);
-    console.log(json);
     axios
       .put("http://api.temaofset.online/api/SiteOption", formData, {
         headers: {
@@ -60,9 +57,10 @@ export default function Settings() {
         setInfo("Ayarlar başarıyla güncellendi");
         setVariant("success");
         setShow(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       })
       .catch((error) => {
         setInfo(error.message);
@@ -145,15 +143,7 @@ export default function Settings() {
                 <div className="d-flex justify-content-around mb-3">
                   <div className="d-flex flex-column align-items-center">
                     <label className="mb-3 fw-semibold text-center">Logo</label>
-                    <img
-                      src={
-                        settings &&
-                        `http://api.temaofset.online/api/Files/${settings.logoImage}`
-                      }
-                      alt="logo"
-                      width="100px"
-                      className="border p-3 mb-3"
-                    />
+
                     {imageSource ? (
                       <div>
                         <p className="text-center">Önizleme</p>
@@ -164,7 +154,17 @@ export default function Settings() {
                           className="border p-3 mb-3"
                         />
                       </div>
-                    ) : null}
+                    ) : (
+                      <img
+                        src={
+                          settings &&
+                          `http://api.temaofset.online/api/Files/${settings.logoImage}`
+                        }
+                        alt="logo"
+                        width="100px"
+                        className="border p-3 mb-3"
+                      />
+                    )}
                     <div className="file-input mb-3">
                       <input
                         className="product-image-button btn ps-0 w-100 border rounded-3"
@@ -180,16 +180,8 @@ export default function Settings() {
                     <label className="mb-3 fw-semibold text-center">
                       Alternatif Logo
                     </label>
-                    <img
-                      src={
-                        settings &&
-                        `http://api.temaofset.online/api/Files/${settings.logoWhite}`
-                      }
-                      alt="logo"
-                      width="100px"
-                      className="border p-3 mb-3 bg-black"
-                    />
-                      {imageSource2 ? (
+
+                    {imageSource2 ? (
                       <div>
                         <p className="text-center">Önizleme</p>
                         <img
@@ -199,7 +191,17 @@ export default function Settings() {
                           className="border p-3 mb-3"
                         />
                       </div>
-                    ) : null}
+                    ) : (
+                      <img
+                        src={
+                          settings &&
+                          `http://api.temaofset.online/api/Files/${settings.logoWhite}`
+                        }
+                        alt="logo"
+                        width="100px"
+                        className="border p-3 mb-3 bg-black"
+                      />
+                    )}
                     <div className="file-input mb-3">
                       <input
                         className="product-image-button btn ps-0 w-100 border rounded-3"

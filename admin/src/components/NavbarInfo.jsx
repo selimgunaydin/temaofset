@@ -1,5 +1,5 @@
 import React from "react";
-import User from "../assets/img/user.avif";
+import User from "../assets/img/user.png";
 import MiniLogo from "../assets/img/mini_logo.svg";
 
 export default function NavbarInfo() {
@@ -21,9 +21,8 @@ export default function NavbarInfo() {
               className="rounded-circle"
             />
           </div>
-          <div className="info d-flex flex-column ms-3 text-secondary">
+          <div className="info d-flex flex-column ms-3 text-secondary fw-semibold">
             <p>Admin</p>
-            <span className="fw-semibold">Selim Günaydın</span>
           </div>
         </div>
       </div>

@@ -74,23 +74,24 @@ export default function Products() {
   }
 
   function handleCategoryDelete(event) {
-    console.log(event.target.value);
-    axios
-      .delete(
-        `http://api.temaofset.online/api/Categories/${event.target.value}`
-      )
-      .then((response) => {
-        setInfo("Kategori başarıyla silindi");
-        setVariant("success");
-        setShow(true);
-        getCategories();
-      })
-      .catch((error) => {
-        console.log(error);
-        setInfo(error);
-        setVariant("danger");
-        setShow(true);
-      });
+    if (window.confirm("Silmek istediğine emin misin?")) {
+      axios
+        .delete(
+          `http://api.temaofset.online/api/Categories/${event.target.value}`
+        )
+        .then((response) => {
+          setInfo("Kategori başarıyla silindi");
+          setVariant("success");
+          setShow(true);
+          getCategories();
+        })
+        .catch((error) => {
+          console.log(error);
+          setInfo(error);
+          setVariant("danger");
+          setShow(true);
+        });
+    }
   }
 
   function handleCategoryImage(event) {
@@ -113,9 +114,7 @@ export default function Products() {
     setShowModal(true);
   }
 
-
   //ÜRÜN İŞLEMLERİ
-
 
   function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
@@ -124,7 +123,6 @@ export default function Products() {
         `http://api.temaofset.online/api/Products/categories/${event.target.value}`
       )
       .then((response) => {
-        console.log(response.data);
         setProducts(response.data);
       })
       .catch((error) => {
@@ -132,25 +130,24 @@ export default function Products() {
       }, []);
   }
 
-
-  function getProducts(){
-    axios
-    .get(
-      `http://api.temaofset.online/api/Products/categories/${selectedCategory}`
-    )
-    .then((response) => {
-      console.log(response.data);
-      setProducts(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    }, []);
+  function getProducts() {
+    if (selectedCategory) {
+      axios
+        .get(
+          `http://api.temaofset.online/api/Products/categories/${selectedCategory}`
+        )
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        }, []);
+    }
   }
 
   useEffect(() => {
-      getProducts()
-  }, [selectedCategory])
-  
+    getProducts();
+  }, [selectedCategory]);
 
   function handleProductSubmit(event) {
     event.preventDefault();
@@ -179,21 +176,24 @@ export default function Products() {
       });
   }
   function handleProductDelete(event) {
-    console.log(event.target.value);
-    axios
-      .delete(`http://api.temaofset.online/api/Products/${event.target.value}`)
-      .then((response) => {
-        setInfo("Ürün başarıyla silindi");
-        setVariant("success");
-        setShow(true);
-        getProducts();
-      })
-      .catch((error) => {
-        console.log(error);
-        setInfo(error);
-        setVariant("danger");
-        setShow(true);
-      });
+    if (window.confirm("Silmek istediğinize emin misiniz?")) {
+      axios
+        .delete(
+          `http://api.temaofset.online/api/Products/${event.target.value}`
+        )
+        .then((response) => {
+          setInfo("Ürün başarıyla silindi");
+          setVariant("success");
+          setShow(true);
+          getProducts();
+        })
+        .catch((error) => {
+          console.log(error);
+          setInfo(error);
+          setVariant("danger");
+          setShow(true);
+        });
+    }
   }
 
   function handleProductImage(event) {
@@ -390,7 +390,7 @@ export default function Products() {
               products.map((item, index) => {
                 return (
                   <div
-                    className="product-box col-6 col-lg-2 d-flex flex-column justify-content-center align-items-center text-black border rounded-3 mb-3 mx-3"
+                    className="product-box col-5 col-lg-2 d-flex flex-column justify-content-center align-items-center text-black border rounded-3 mb-3 mx-3"
                     key={index}
                   >
                     <img

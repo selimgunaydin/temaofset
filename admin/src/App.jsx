@@ -14,10 +14,27 @@ import Settings from "./pages/Settings";
 import NavbarInfo from "./components/NavbarInfo";
 import { useEffect } from "react";
 import axios from "axios";
+import { useState } from "react";
+import MobileError from "./pages/MobileError";
 
 function App() {
   const { loader } = loaderStore();
   let navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobil cihaz için eşik değeri (768 piksel)
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Komponent yüklendiğinde başlangıç genişliği kontrol edilir
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     let refreshTokenData = {
       refreshToken: localStorage.getItem("refresh_token"),
@@ -44,36 +61,42 @@ function App() {
   if (loader) {
     return <Loader />;
   } else {
-    if (localStorage.getItem("refresh_token")) {
-      return (
-        <>
-          <div className="d-flex">
-            <Navbar />
-            <div className="d-flex flex-column w-100">
-              <NavbarInfo />
-              <Routes>
-                <Route path="/" element={<Admin />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/references" element={<References />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/NotFound" element={<NotFound />} />
-                <Route path="/Forbidden" element={<Forbidden />} />
-              </Routes>
-            </div>
-          </div>
-        </>
-      );
-    } else {
-      return (
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="*" element={<Forbidden />} />
-        </Routes>
-      );
-    }
+      if(!isMobile){
+        if (localStorage.getItem("refresh_token")) {
+          return (
+            <>
+              <div className="d-flex">
+                <Navbar />
+                <div className="d-flex flex-column w-100">
+                  <NavbarInfo />
+                  <Routes>
+                    <Route path="/" element={<Admin />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/references" element={<References />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/NotFound" element={<NotFound />} />
+                    <Route path="/Forbidden" element={<Forbidden />} />
+                  </Routes>
+                </div>
+              </div>
+            </>
+          );
+        } else {
+          return (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="*" element={<Forbidden />} />
+            </Routes>
+          );
+        }
+      }else{
+          return(
+            <MobileError/>
+          )
+      }
   }
 }
 

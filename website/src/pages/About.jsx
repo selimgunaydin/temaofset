@@ -68,7 +68,7 @@ export default function About() {
           <p className="fs-1 fw-semibold mb-3">Sertifikalar</p>
         </div>
         <div className="certifications container">
-          <div className="row ">
+          <div className="row d-flex justify-content-center">
             {certifications &&
               certifications.map((item, index) => {
                 return (

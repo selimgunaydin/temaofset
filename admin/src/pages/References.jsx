@@ -83,23 +83,24 @@ export default function References() {
     setShowModal(true);
   }
   function handleDelete(event) {
-    console.log(event.target.value);
-    axios
-      .delete(
-        `http://api.temaofset.online/api/Referances/${event.target.value}`
-      )
-      .then((response) => {
-        setInfo("Referans başarıyla silindi");
-        setVariant("success");
-        setShow(true);
-        getReferences();
-      })
-      .catch((error) => {
-        console.log(error);
-        setInfo(error);
-        setVariant("danger");
-        setShow(true);
-      });
+    if (window.confirm("Silmek istediğinize emin misiniz?")) {
+      axios
+        .delete(
+          `http://api.temaofset.online/api/Referances/${event.target.value}`
+        )
+        .then((response) => {
+          setInfo("Referans başarıyla silindi");
+          setVariant("success");
+          setShow(true);
+          getReferences();
+        })
+        .catch((error) => {
+          console.log(error);
+          setInfo(error);
+          setVariant("danger");
+          setShow(true);
+        });
+    }
   }
 
   return (
@@ -172,25 +173,27 @@ export default function References() {
             </div>
           </Alert>
           <ul className="list-unstyled row references">
-            {referenceImages.map((item, index) => (
-              <li
-                className="reference-item mx-3 my-3 col-2 border rounded-3 d-flex justify-content-center align-items-center p-3"
-                key={index}
-              >
-                <img
-                  src={`http://api.temaofset.online/api/Files/${item.imageUrl}`}
-                  width="100px"
-                  height="50px"
-                  alt=""
-                  style={{ objectFit: "contain" }}
-                />
-                <button
-                  className="btn image-delete-button"
-                  value={item.id}
-                  onClick={(e) => handleDelete(e)}
-                ></button>
-              </li>
-            ))}
+            {referenceImages &&
+              referenceImages.map((item, index) => (
+                <li
+                  className="reference-item mx-3 my-3 col-2 border rounded-3 d-flex justify-content-center align-items-center p-3"
+                  key={index}
+                >
+                  <img
+                    src={`http://api.temaofset.online/api/Files/${item.imageUrl}`}
+                    width="100px"
+                    height="50px"
+                    alt=""
+                    style={{ objectFit: "contain" }}
+                    className="col-12"
+                  />
+                  <button
+                    className="btn image-delete-button"
+                    value={item.id}
+                    onClick={(e) => handleDelete(e)}
+                  ></button>
+                </li>
+              ))}
           </ul>
         </div>
       </div>

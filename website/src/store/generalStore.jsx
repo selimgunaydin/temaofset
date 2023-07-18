@@ -31,7 +31,7 @@ export const generalStore = create((set) => ({
   },
 }));
 export const loaderStore = create((set) => ({
-  loader: false,
+  loader: true,
   setLoader: (status) => {
     set({ loader: status });
   },
