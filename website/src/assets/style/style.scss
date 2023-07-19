@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap');
+
 @import 'mixin';
 @import "/node_modules/bootstrap/scss/bootstrap.scss";
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
@@ -60,6 +61,27 @@ body {
     background-color: #fff;
     position: sticky;
     top: 0;
+
+    .top-bar {
+        position: absolute;
+        top: -50px;
+        background-color: #009fe3;
+        width: 100%;
+        transition: $transition;
+        height: 39px;
+        border-bottom: #fbfbfb 1px solid;
+
+        p,
+        a {
+            font-size: 14px;
+            font-weight: 300;
+        }
+    }
+
+    .active {
+        position: sticky;
+        top: 0;
+    }
 
     .header-middle {
         ul {
@@ -165,13 +187,13 @@ body {
     top: 0;
     z-index: 21;
     background-color: white;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     .mobile-menu-button {
-        width: 57px;
-        height: 57px;
+        width: 40px;
+        height: 40px;
         box-shadow: 0px -2px 12px #EBE9F3;
     }
 }
@@ -221,6 +243,7 @@ body {
         }
     }
 }
+
 
 //HEADER
 
@@ -297,8 +320,6 @@ body {
     background-color: #fbfbfb;
 
     .category-box {
-        width: 200px;
-        height: 150px;
         position: relative;
 
         img {
@@ -539,6 +560,15 @@ body {
 
 //CATEGORY
 
+.category-page-title {
+    margin-top: 20px;
+
+    @media screen and (max-width: 992px) {
+        margin-top: 80px;
+    }
+
+}
+
 .product-image {
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -766,7 +796,7 @@ $primary-color: #009fe3;
 
 //CONTACT
 
-.contact{
+.contact {
     @media screen and (max-width:992px) {
         margin-top: 125px;
     }

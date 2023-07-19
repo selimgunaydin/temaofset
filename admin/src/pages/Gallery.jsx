@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export default function Gallery() {
   const [info, setInfo] = useState("");
@@ -21,21 +21,37 @@ export default function Gallery() {
   const [sliderImageSource, setSliderImageSource] = useState("");
 
   const [editSliderModalShow, setEditSliderModalShow] = useState(false);
+  const [editSliderId, setEditSliderId] = useState("");
   const [editSliderTitle, setEditSliderTitle] = useState("");
   const [editSliderContent, setEditSliderContent] = useState("");
   const [editSliderImage, setEditSliderImage] = useState("");
   const [editSliderImageSource, setEditSliderImageSource] = useState("");
+
+  const [selectedItemId, setSelectedItemId] = useState("");
 
   useEffect(() => {
     axios
       .get("http://api.temaofset.online/api/SiteOption/Slider")
       .then((response) => {
         setSliders(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  function getSliders() {
+    axios
+      .get("http://api.temaofset.online/api/SiteOption/Slider")
+      .then((response) => {
+        setSliders(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -46,7 +62,7 @@ export default function Gallery() {
     formData.append("image", sliderImage[0]);
 
     axios
-      .put("http://api.temaofset.online/api/SiteOption/Slider", formData, {
+      .post("http://api.temaofset.online/api/SiteOption/Slider", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -56,11 +72,12 @@ export default function Gallery() {
         setVariant("success");
         setShow(true);
         setShowModal(false);
-        console.log(response);
+        setSliderImageSource("");
         window.scrollTo({
           top: 0,
           behavior: "smooth",
         });
+        getSliders();
       })
       .catch((error) => {
         setInfo(error.message);
@@ -96,6 +113,7 @@ export default function Gallery() {
 
   function handleEditModalShow(event) {
     setEditSliderModalShow(true);
+    setEditSliderId(event.target.value);
     axios
       .get(
         `http://api.temaofset.online/api/SiteOption/Slider/items/${event.target.value}`
@@ -122,9 +140,103 @@ export default function Gallery() {
     }
   }
 
-  function handleEditSubmit(){
-    
+  function handleEditSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("id", editSliderId);
+    formData.append("title", editSliderTitle);
+    formData.append("subTitle", editSliderContent);
+    formData.append("image", editSliderImage[0]);
+
+    axios
+      .put(
+        "http://api.temaofset.online/api/SiteOption/Slider/items",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        setInfo("Slider başarıyla güncellendi");
+        setVariant("success");
+        setShow(true);
+        setEditSliderModalShow(false);
+        setEditSliderId("");
+        setEditSliderImage("");
+        setEditSliderTitle("");
+        setEditSliderContent("");
+        getSliders();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      })
+      .catch((error) => {
+        setInfo(error.message);
+        setVariant("danger");
+        setShow(true);
+        setEditSliderModalShow(false);
+        setEditSliderId("");
+        setEditSliderImage("");
+        setEditSliderTitle("");
+        setEditSliderContent("");
+        console.log(error);
+      });
   }
+
+  function handleDelete() {
+    axios
+      .delete(
+        `http://api.temaofset.online/api/SiteOption/Slider/${editSliderId}`
+      )
+      .then((response) => {
+        console.log(response);
+        setInfo("Slider başarıyla silindi");
+        setVariant("success");
+        setShow(true);
+        setEditSliderModalShow(false);
+        setEditSliderId("");
+        setEditSliderImage("");
+        setEditSliderTitle("");
+        setEditSliderContent("");
+        getSliders();
+      })
+      .catch((error) => {
+        setInfo(error.message);
+        setVariant("danger");
+        setShow(true);
+        setEditSliderModalShow(false);
+        setEditSliderId("");
+        setEditSliderImage("");
+        setEditSliderTitle("");
+        setEditSliderContent("");
+        console.log(error);
+      });
+  }
+
+  function handleSliderListOrder(event) {
+    console.log("Item Id : " + selectedItemId);
+    console.log("Item Order : " + event.target.value);
+    axios
+      .put(
+        `http://api.temaofset.online/api/SiteOption/Slider/${selectedItemId}?order=${event.target.value}`
+      )
+      .then((response) => {
+        console.log(response);
+        getSliders();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    setSelectedItemId(null);
+  }, [sliders]);
 
   return (
     <>
@@ -245,6 +357,9 @@ export default function Gallery() {
           >
             Vazgeç
           </Button>
+          <Button variant="danger" onClick={handleDelete} className="rounded-3">
+            Sil
+          </Button>
           <Button
             variant="primary"
             onClick={handleEditSubmit}
@@ -288,8 +403,32 @@ export default function Gallery() {
               return (
                 <div key={index} className="sliders">
                   <div className="slider-box row border rounded-3 mb-3 px-3 d-flex align-items-center">
-                    <div className="order col-3">
-                      <p>{item.order}</p>
+                    <div className="order col-3 d-flex align-items-center">
+                      <p className="">{item.order}</p>
+                      <select
+                        onChange={handleSliderListOrder}
+                        onMouseDown={() => setSelectedItemId(item.id)}
+                        className="rounded-3 py-2 px-2 ms-3"
+                        value={
+                          selectedItemId === item.id ? item.order : "Sırala"
+                        }
+                      >
+                        <option disabled>Sırala</option>
+                        {sliders.map((item, index) => {
+                          return (
+                            <option key={index} value={index + 1}>
+                              {index + 1}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <button
+                        className="btn btn-outline-dark rounded-3 ms-3 py-2"
+                        onClick={(e) => handleEditModalShow(e)}
+                        value={item.id}
+                      >
+                        Düzenle
+                      </button>
                     </div>
                     <div className="title col-3">
                       <p>{item.title}</p>
@@ -305,15 +444,6 @@ export default function Gallery() {
                         className="p-3 border-start"
                       />
                     </div>
-                  </div>
-                  <div className="buttons">
-                    <button
-                      className="btn rounded-3"
-                      onClick={(e) => handleEditModalShow(e)}
-                      value={item.id}
-                    >
-                      Düzenle
-                    </button>
                   </div>
                 </div>
               );

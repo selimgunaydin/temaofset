@@ -13,7 +13,7 @@ export default function Footer() {
         transition={{ duration: 0.5 }}
         className="footer"
       >
-        <div className="container pt-5 pb-4">
+        <div className="container pt-3 pb-4">
           <div className="row">
             <div className="col-12 col-lg-6 my-2">
               <div className="logo d-flex">
@@ -23,8 +23,8 @@ export default function Footer() {
                     `http://api.temaofset.online/api/Files/${options.logoWhite}`
                   }
                   alt="logo"
-                  height="60px"
-                  className="mb-3"
+                  height="40px"
+                  className="mb-4"
                 />
               </div>
               <p className="text-secondary">

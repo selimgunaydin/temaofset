@@ -42,7 +42,7 @@ export default function Category() {
       if (isValid) {
         return (
           <>
-            <div className="d-flex flex-column mt-4 mb-1 text-center mb-4">
+            <div className="d-flex flex-column mb-1 text-center mb-4 category-page-title">
               <p className="fs-1 fw-bold">{defination}</p>
             </div>
             <ProductsMotion key={categoryId}>
@@ -81,7 +81,7 @@ const ProductsMotion = ({ children }) => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1 }}
-    className="mb-5 vh-100"
+    className="mb-5"
   >
     {children}
   </motion.div>
