@@ -70,7 +70,7 @@ export default function Header() {
         transition={{ duration: 1 }}
         className="header shadow-sm d-none d-lg-block"
       >
-        <div className={`top-bar ${topBarOpen ? "n" : null}`}>
+        <div className={`top-bar ${topBarOpen ? "active" : null}`}>
           <div className="container">
             <div className="row py-2">
               <div className="col-4 border-start border-1 border-white d-flex align-items-center justify-content-center">

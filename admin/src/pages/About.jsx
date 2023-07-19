@@ -259,7 +259,11 @@ export default function About() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Achivements/${event.target.value}`
+          `http://api.temaofset.online/api/Achivements/${event.target.value}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            },
+          }
         )
         .then((response) => {
           setInfo("Sertifika başarıyla silindi");

@@ -30,6 +30,7 @@ export default function Products() {
       .get(`http://api.temaofset.online/api/Categories`)
       .then((response) => {
         setCategories(response.data);
+      
       })
       .catch((error) => {
         console.log(error);
@@ -64,6 +65,9 @@ export default function Products() {
         setShow(true);
         setShowModal(false);
         getCategories();
+        setCategoryImage("");
+        setCategoryDefination("");
+        setImageSource2("");
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +81,11 @@ export default function Products() {
     if (window.confirm("Silmek istediğine emin misin?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Categories/${event.target.value}`
+          `http://api.temaofset.online/api/Categories/${event.target.value}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            },
+          }
         )
         .then((response) => {
           setInfo("Kategori başarıyla silindi");
@@ -124,6 +132,7 @@ export default function Products() {
       )
       .then((response) => {
         setProducts(response.data);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -138,6 +147,7 @@ export default function Products() {
         )
         .then((response) => {
           setProducts(response.data);
+          console.log(products)
         })
         .catch((error) => {
           console.log(error);
@@ -165,7 +175,11 @@ export default function Products() {
         setInfo("Ürün başarıyla eklendi");
         setVariant("success");
         setShow(true);
-        setShowModal(false);
+        setShowProductModal(false);
+        setProductImages("");
+        setProductTitle("");
+        setSelectedCategory("");
+        setImageSource("");
         getProducts();
       })
       .catch((error) => {
@@ -179,7 +193,11 @@ export default function Products() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Products/${event.target.value}`
+          `http://api.temaofset.online/api/Products/${event.target.value}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            },
+          }
         )
         .then((response) => {
           setInfo("Ürün başarıyla silindi");

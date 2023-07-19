@@ -53,6 +53,7 @@ export default function References() {
         setVariant("success");
         setShow(true);
         getReferences();
+        setImageSource("")
         setShowModal(false);
       })
       .catch((error) => {
@@ -86,7 +87,11 @@ export default function References() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Referances/${event.target.value}`
+          `http://api.temaofset.online/api/Referances/${event.target.value}`,{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            },
+          }
         )
         .then((response) => {
           setInfo("Referans başarıyla silindi");

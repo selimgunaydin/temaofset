@@ -11,9 +11,11 @@ export default function Location() {
         className="location"
       >
         <div className="google-map">
-          <iframe src="https://www.google.com/maps/embed/v1/place?q=Tahtakale,+Çalıkuşu+Sokak,+Avcılar/İstanbul,+Türkiye&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+          <iframe src="https://maps.google.com/maps?width=700&amp;height=440&amp;hl=en&amp;q=41.021236%2C%2028.916663+(Temaofset)&amp;ie=UTF8&amp;t=&amp;z=15&amp;iwloc=B&amp;output=embed" ></iframe>
         </div>
       </motion.div>
     </>
   );
 }
+
+

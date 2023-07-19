@@ -34,7 +34,7 @@ export default function Navbar() {
     <>
       <nav>
         <div className="header d-flex flex-column p-4">
-          <div className="logo mb-3 w-100" onClick={() => navigate("/")}>
+          <div className="logo mb-3 w-100 ps-3" onClick={() => navigate("/")}>
             <img
               src={
                 options &&

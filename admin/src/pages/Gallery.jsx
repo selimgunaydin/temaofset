@@ -191,7 +191,12 @@ export default function Gallery() {
   function handleDelete() {
     axios
       .delete(
-        `http://api.temaofset.online/api/SiteOption/Slider/${editSliderId}`
+        `http://api.temaofset.online/api/SiteOption/Slider/${editSliderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -219,18 +224,22 @@ export default function Gallery() {
   }
 
   function handleSliderListOrder(event) {
-    console.log("Item Id : " + selectedItemId);
-    console.log("Item Order : " + event.target.value);
     axios
       .put(
-        `http://api.temaofset.online/api/SiteOption/Slider/${selectedItemId}?order=${event.target.value}`
+        `http://api.temaofset.online/api/SiteOption/Slider/${selectedItemId}/orderid/${event.target.value}`
       )
       .then((response) => {
         console.log(response);
         getSliders();
+        setInfo("Sıra başarıyla güncellendi");
+        setVariant("success");
+        setShow(true);
       })
       .catch((error) => {
         console.log(error);
+        setInfo(error.message);
+        setVariant("danger");
+        setShow(true);
       });
   }
 

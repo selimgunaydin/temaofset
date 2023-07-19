@@ -1,16 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { generalStore } from "../../store/generalStore";
 
 export default function Footer() {
   const { options, categories } = generalStore();
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+      <div
         className="footer"
       >
         <div className="container pt-3 pb-4">
@@ -70,7 +66,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
       <div className="copyright py-2">
         <div className="container text-center">
           <p className="text-secondary mb-0">

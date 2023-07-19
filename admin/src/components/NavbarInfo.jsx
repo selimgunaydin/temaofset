@@ -22,7 +22,7 @@ export default function NavbarInfo() {
             />
           </div>
           <div className="info d-flex flex-column ms-3 text-secondary fw-semibold">
-            <p>Admin</p>
+            <p>Yönetici</p>
           </div>
         </div>
       </div>
