@@ -51,11 +51,11 @@ export default function About() {
               </div>
             </div>
             <div className="vision-left col-12 col-lg-6 order-lg-2 order-2">
-              <h1 className="mb-3 display-6 border-start border-5 border-danger ps-3">
+              <h1 className="mb-3 fs-2 border-start border-5 border-danger ps-3">
                 Vizyon
               </h1>
               <p className="mb-3">{visionData && visionData.title}</p>
-              <h1 className="mb-3 display-6 border-start border-5 border-danger ps-3">
+              <h1 className="mb-3 fs-2 border-start border-5 border-danger ps-3">
                 Misyon
               </h1>
               <p className="mb-4">{visionData && visionData.defination}</p>

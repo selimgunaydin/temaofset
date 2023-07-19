@@ -39,7 +39,7 @@ export default function About(props) {
         <div className="container px-5">
           <div className="row">
             <div className="about-left col-12 col-lg-6 order-lg-1 order-2">
-              <h1 className="mb-4 display-6 border-start border-5 border-danger ps-3">Hakkımızda</h1>
+              <h1 className="mb-4 fs-2 border-start border-5 border-danger ps-3">Hakkımızda</h1>
               <p className="fw-semibold fs-5 mb-2">
                 {aboutInfo && aboutInfo.title}
               </p>
