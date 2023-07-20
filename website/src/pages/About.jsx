@@ -65,7 +65,7 @@ export default function About() {
       </div>
       <div className="certification mb-5">
         <div className="d-flex flex-column my-4 text-center">
-          <p className="fs-1 fw-semibold mb-3">Sertifikalar</p>
+          <p className="fs-2 fw-semibold mb-3">Sertifikalar</p>
         </div>
         <div className="certifications container">
           <div className="row d-flex justify-content-center">

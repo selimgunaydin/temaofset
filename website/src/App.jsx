@@ -10,7 +10,6 @@ import Loader from "./pages/Loader";
 import { loaderStore } from "./store/generalStore";
 import About from "./pages/About";
 
-
 function App() {
   const { loader } = loaderStore();
   if (loader) {

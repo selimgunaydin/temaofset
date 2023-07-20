@@ -253,6 +253,9 @@ body {
 .shape {
     z-index: 10;
     position: absolute;
+    @media screen and (max-width:992px) {
+        left: -400px;
+    }
 }
 
 .carousel {
@@ -261,7 +264,7 @@ body {
     .carousel-indicators {
         position: absolute;
         transform: rotate(90deg);
-        left: -2000px;
+        left: -1600px;
         top: -7px;
 
         button {
@@ -269,11 +272,27 @@ body {
             height: 15px;
             border-radius: 100%;
         }
+        @media screen and (min-width:1000px) {
+            left: -1700px;
+        }
+        @media screen and (min-width:1300px) {
+            left: -2000px;
+        }
+        @media screen and (min-width:1700px) {
+            left: -2215px;
+        }
+
     }
 
     .carousel-item {
         img {
             height: 775px;
+            object-fit: cover;
+            filter: brightness(.75);
+        }
+        video {
+            height: 775px;
+            width: 100%;
             object-fit: cover;
             filter: brightness(.75);
         }

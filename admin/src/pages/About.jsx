@@ -439,7 +439,7 @@ export default function About() {
               <div className="row">
                 <div className="col-6">
                   <div className="col-12">
-                    <label className="mb-3 fw-semibold">Başlık</label>
+                    <label className="mb-3 fw-semibold">Vizyon</label>
                     <textarea
                       className="mb-3 py-2 px-3 text-muted  bg-light rounded-3 shadow-sm border-0 w-100"
                       type="text"
@@ -449,7 +449,7 @@ export default function About() {
                     />
                   </div>
                   <div className="col-12">
-                    <label className="mb-3 fw-semibold">İçerik</label>
+                    <label className="mb-3 fw-semibold">Misyon</label>
                     <textarea
                       className="mb-3 py-2 px-3 text-muted  bg-light rounded-3 shadow-sm border-0 w-100"
                       type="text"

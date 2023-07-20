@@ -291,7 +291,7 @@ export default function Products() {
           <Modal.Title>Ürün Ekle</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex flex-column">
-          <p className="mb-3">Kategori başlığı girin.</p>
+          <p className="mb-3">Ürün başlığı girin.</p>
           <input
             className="mb-3 py-2 px-3 text-muted  bg-light rounded-3 shadow-sm border-0 w-100"
             type="text"

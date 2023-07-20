@@ -90,13 +90,18 @@ export default function Gallery() {
 
   function handleSliderImage(event) {
     setSliderImage(event.target.files);
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSliderImageSource(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (event.target.files[0].size > 10485760) {
+      alert("Yüklemek istediğiniz dosya boyutu çok büyük!");
+      setShowModal(false);
+    } else {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSliderImageSource(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   }
 
@@ -273,7 +278,7 @@ export default function Gallery() {
               name=""
               id=""
               onChange={handleSliderImage}
-              accept="image/png, image/jpg, image/jpeg"
+              accept="image/png, image/jpg, image/jpeg, video/mp4"
             />
           </div>
           {sliderImageSource ? (
@@ -331,7 +336,7 @@ export default function Gallery() {
               name=""
               id=""
               onChange={handleEditSliderImage}
-              accept="image/png, image/jpg, image/jpeg"
+              accept="image/png, image/jpg, image/jpeg,video/mp4"
             />
           </div>
           {editSliderImageSource ? (
@@ -448,7 +453,7 @@ export default function Gallery() {
                     <div className="image col-3 d-flex justify-content-end">
                       <img
                         src={`http://api.temaofset.online/api/Files/${item.image}`}
-                        alt="logo"
+                        alt="video"
                         width="100px"
                         className="p-3 border-start"
                       />
