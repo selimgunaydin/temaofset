@@ -90,9 +90,18 @@ export default function Settings() {
         }
       )
       .then((response) => {
-        console.log(response);
+        setInfo("Bakım Modu başarıyla güncellendi");
+        setVariant("success");
+        setShow(true);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       })
       .catch((error) => {
+        setInfo(error.message);
+        setVariant("danger");
+        setShow(true);
         console.log(error);
       });
   }
