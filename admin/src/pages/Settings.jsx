@@ -16,6 +16,7 @@ export default function Settings() {
   const [adress, setAdress] = useState("");
   const [imageSource, setImageSource] = useState("");
   const [imageSource2, setImageSource2] = useState("");
+  const [isMaintenance, setIsMaintenance] = useState();
   useEffect(() => {
     axios
       .get(`http://api.temaofset.online/api/SiteOption`)
@@ -26,6 +27,7 @@ export default function Settings() {
         setPhone(response.data.phoneNumber);
         setEmail(response.data.email);
         setAdress(response.data.adress);
+        setIsMaintenance(response.data.isMaintenance);
       })
       .catch((error) => {
         console.log(error);
@@ -35,7 +37,7 @@ export default function Settings() {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
-
+    console.log(isMaintenance);
     formData.append("logoWhite", alternativeLogo[0]);
     formData.append("logoImage", logo[0]);
     formData.append("Email", email);
@@ -66,6 +68,31 @@ export default function Settings() {
         setInfo(error.message);
         setVariant("danger");
         setShow(true);
+        console.log(error);
+      });
+  }
+
+  let maintenanceData;
+
+  function handleMaintenance(item) {
+    maintenanceData = !item;
+    setIsMaintenance(!item);
+    axios
+      .put(
+        "http://api.temaofset.online/api/SiteOption/Maintenance",
+        {
+          isMaintenance: maintenanceData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -133,13 +160,28 @@ export default function Settings() {
                     />
                   </div>
                 </div>
-                <label className="mb-3 fw-semibold">Adres</label>
-                <input
-                  className="mb-3 py-2 px-3 text-muted  bg-light rounded-3 shadow-sm border-0"
-                  type="text"
-                  value={adress}
-                  onChange={(e) => setAdress(e.target.value)}
-                />
+                <div className="d-flex">
+                  <div className="w-100">
+                    <label className="mb-3 fw-semibold">Adres</label>
+                    <input
+                      className="mb-3 py-2 px-3 text-muted  bg-light rounded-3 shadow-sm border-0 w-100"
+                      type="text"
+                      value={adress}
+                      onChange={(e) => setAdress(e.target.value)}
+                    />
+                  </div>
+                  <div className="w-100 ms-4">
+                    <label className="mb-3 fw-semibold">Bakım Modu</label>
+                    <div
+                      className="checkbox"
+                      onClick={() => handleMaintenance(isMaintenance)}
+                    >
+                      <div
+                        className={`dot ` + `${isMaintenance ? "active" : ""}`}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
                 <div className="d-flex justify-content-around mb-3">
                   <div className="d-flex flex-column align-items-center">
                     <label className="mb-3 fw-semibold text-center">Logo</label>

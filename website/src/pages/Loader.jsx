@@ -1,11 +1,17 @@
 import { useEffect } from "react";
-import { generalStore } from "../store/generalStore";
 
 export default function Loaer(props) {
-  const { getOptions } = generalStore();
+  const yourScrollEventHandler = () => {
+    // Scroll event handler kodları burada
+  };
+
   useEffect(() => {
-    getOptions();
+    window.addEventListener('scroll', yourScrollEventHandler);
+    return () => {
+      window.removeEventListener('scroll', yourScrollEventHandler);
+    };
   }, []);
+    
   return (
     <div className="loader-main vh-100 d-flex flex-column justify-content-center align-items-center">
       <div className="cube-wrapper">

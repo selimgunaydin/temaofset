@@ -5,22 +5,12 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import preview from "../../assets/img/preview.png"
-
+import preview from "../../assets/img/preview.png";
+import { generalStore } from "../../store/generalStore";
 
 export default function HomeCarousel() {
-  const [sliders, setSliders] = useState("");
+  const { sliders } = generalStore();
   const [isVideo, setIsVideo] = useState();
-  useEffect(() => {
-    axios
-      .get("http://api.temaofset.online/api/SiteOption/Slider")
-      .then((response) => {
-        setSliders(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     sliders &&
@@ -61,7 +51,14 @@ export default function HomeCarousel() {
                     <div className="shape">
                       <img src={shapeMask} alt="mask" />
                     </div>
-                    <video autoPlay loop muted playsInline poster={preview} preload="auto">
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster={preview}
+                      preload="auto"
+                    >
                       <source
                         src={`http://api.temaofset.online/api/Files/${item.image}`}
                         type="video/mp4"

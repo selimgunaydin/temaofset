@@ -7,18 +7,26 @@ import Category from "./pages/Category";
 import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
 import Loader from "./pages/Loader";
-import { loaderStore } from "./store/generalStore";
+import { loaderStore, generalStore } from "./store/generalStore";
 import About from "./pages/About";
+import Maintenance from "./pages/Maintenance";
+import { useEffect } from "react";
 
 function App() {
   const { loader } = loaderStore();
-  if (loader) {
-    return(
-      <Loader/>
-    )
+  const { getOptions, getCategories, getSliders, options } = generalStore();
+  useEffect(() => {
+    getOptions();
+    getCategories();
+    getSliders();
+  }, []);
+
+  if (options && options.isMaintenance) {
+    return <Maintenance />;
   } else {
     return (
       <>
+        {loader ? <Loader /> : null}
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

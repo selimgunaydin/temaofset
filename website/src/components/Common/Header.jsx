@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 export default function Header() {
-  const { getOptions, getCategories, categories, options } = generalStore();
+  const { getCategories, categories, options } = generalStore();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState("");
   const { pathname } = useLocation();
   const [mobileMenuDropdown, setMobileMenuDropdown] = useState("d-none");
@@ -28,11 +28,6 @@ export default function Header() {
       behavior: "smooth",
     });
   }, [pathname]);
-
-  useEffect(() => {
-    getOptions();
-    getCategories();
-  }, []);
 
   function handleMobileMenu() {
     setMobileMenuDropdown("d-none");
