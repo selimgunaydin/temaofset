@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import Loader from "../../pages/Loader";
+import preview from "../../assets/img/preview.png"
+
 
 export default function HomeCarousel() {
   const [sliders, setSliders] = useState("");
@@ -60,7 +61,7 @@ export default function HomeCarousel() {
                     <div className="shape">
                       <img src={shapeMask} alt="mask" />
                     </div>
-                    <video autoPlay loop muted playsInline preload="auto">
+                    <video autoPlay loop muted playsInline poster={preview} preload="auto">
                       <source
                         src={`http://api.temaofset.online/api/Files/${item.image}`}
                         type="video/mp4"

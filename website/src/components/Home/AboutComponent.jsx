@@ -9,12 +9,17 @@ export default function About(props) {
   const [projectCount, setProjectCount] = useState(200);
   const [aboutInfo, setAboutInfo] = useState();
   useEffect(() => {
-    setTimeout(() => {
-      setCustomerCount(customerCount + 1);
-    }, 30);
-    setTimeout(() => {
-      setProjectCount(projectCount + 1);
-    }, 60);
+    if(projectCount<800){
+      setTimeout(() => {
+        setProjectCount(projectCount + 1);
+      }, 60);
+     
+    }
+    if(customerCount<1000){
+      setTimeout(() => {
+        setCustomerCount(customerCount + 1);
+      }, 30);
+    }
   }, [customerCount]);
 
   useEffect(() => {
