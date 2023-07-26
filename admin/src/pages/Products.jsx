@@ -15,14 +15,14 @@ export default function Products() {
   const [variant, setVariant] = useState("");
 
   const [showModal, setShowModal] = useState(false);
-  const [categoryImage, setCategoryImage] = useState(null);
+  const [categoryImage, setCategoryImage] = useState("");
   const [categoryDefination, setCategoryDefination] = useState("");
 
   const [showProductModal, setShowProductModal] = useState();
   const [products, setProducts] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
-  const [productTitle, setProductTitle] = useState();
-  const [productImages, setProductImages] = useState();
+  const [productTitle, setProductTitle] = useState("");
+  const [productImages, setProductImages] = useState([]);
 
   const [imageSource, setImageSource] = useState("");
   const [imageSource2, setImageSource2] = useState("");
@@ -72,10 +72,10 @@ export default function Products() {
         setImageSource2("");
       })
       .catch((error) => {
-        console.log(error);
-        setInfo(error);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
+        setShowModal(false)
       });
   }
 
@@ -97,7 +97,7 @@ export default function Products() {
         })
         .catch((error) => {
           console.log(error);
-          setInfo(error);
+          setInfo(error.response.data.Errors[0]);
           setVariant("danger");
           setShow(true);
         });
@@ -162,7 +162,13 @@ export default function Products() {
 
   function handleProductSubmit(event) {
     event.preventDefault();
-    const formData = new FormData();
+    if(productImages[0]==undefined){
+      setInfo("'Image' must not be empty."); // DÖNEN ERROR EKLENECEK
+      setVariant("danger");
+      setShow(true);
+      setShowProductModal(false)
+    }else{
+      const formData = new FormData();
     formData.append("Images", productImages[0]);
     formData.append("ProductName", productTitle);
     formData.append("CategoryId", selectedCategory);
@@ -184,11 +190,12 @@ export default function Products() {
         getProducts();
       })
       .catch((error) => {
-        console.log(error);
-        setInfo(error);
+        setInfo(error.response.data.Errors[0]); 
         setVariant("danger");
         setShow(true);
+        setShowProductModal(false)
       });
+    }
   }
   function handleProductDelete(event) {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {

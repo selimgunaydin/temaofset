@@ -82,11 +82,11 @@ export default function Gallery() {
         getSliders();
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         setShowModal(false);
-        console.log(error);
+
       });
   }
 
@@ -183,7 +183,7 @@ export default function Gallery() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         setEditSliderModalShow(false);
@@ -218,7 +218,7 @@ export default function Gallery() {
         getSliders();
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         setEditSliderModalShow(false);
@@ -243,8 +243,8 @@ export default function Gallery() {
         setShow(true);
       })
       .catch((error) => {
-        console.log(error);
-        setInfo(error.message);
+        console.log(error.response.data.Errors[0]);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
       });

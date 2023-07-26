@@ -75,7 +75,7 @@ export default function About() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         console.log(error);
@@ -145,7 +145,7 @@ export default function About() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         console.log(error);
@@ -224,7 +224,7 @@ export default function About() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         console.log(error);
@@ -278,7 +278,7 @@ export default function About() {
           getCertifications();
         })
         .catch((error) => {
-          setInfo(error.message);
+          setInfo(error.response.data.Errors[0]);
           setVariant("danger");
           setShow(true);
           console.log(error);

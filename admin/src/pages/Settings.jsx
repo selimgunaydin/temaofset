@@ -45,7 +45,7 @@ export default function Settings() {
     formData.append("Email", email);
     formData.append("PhoneNumber", phoneNumber);
     formData.append("Adress", adress);
-    formData.append("SocialMediaLink", "aa");
+    formData.append("SocialMediaLink", "SocialMediaLink");
 
     // var object = {};
     // formData.forEach((value, key) => (object[key] = value));
@@ -67,11 +67,12 @@ export default function Settings() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         console.log(error);
       });
+      handleMaintenance(!isMaintenance)
   }
 
   let maintenanceData;
@@ -101,7 +102,7 @@ export default function Settings() {
         });
       })
       .catch((error) => {
-        setInfo(error.message);
+        setInfo(error.response.data.Errors[0]);
         setVariant("danger");
         setShow(true);
         console.log(error);

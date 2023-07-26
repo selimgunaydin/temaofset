@@ -59,7 +59,7 @@ export default function References() {
         setShowModal(false);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data.Errors[0]);
         setInfo(error);
         setVariant("danger");
         setShow(true);
@@ -102,8 +102,7 @@ export default function References() {
           getReferences();
         })
         .catch((error) => {
-          console.log(error);
-          setInfo(error);
+          setInfo(error.response.data.Errors[0]);
           setVariant("danger");
           setShow(true);
         });
