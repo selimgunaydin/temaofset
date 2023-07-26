@@ -39,7 +39,6 @@ export default function Settings() {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
-    console.log(isMaintenance);
     formData.append("logoWhite", alternativeLogo[0]);
     formData.append("logoImage", logo[0]);
     formData.append("Email", email);
@@ -72,7 +71,6 @@ export default function Settings() {
         setShow(true);
         console.log(error);
       });
-      handleMaintenance(!isMaintenance)
   }
 
   let maintenanceData;
