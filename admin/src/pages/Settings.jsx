@@ -45,6 +45,7 @@ export default function Settings() {
     formData.append("PhoneNumber", phoneNumber);
     formData.append("Adress", adress);
     formData.append("SocialMediaLink", "SocialMediaLink");
+    formData.append("isMaintenance", isMaintenance);
 
     // var object = {};
     // formData.forEach((value, key) => (object[key] = value));
@@ -98,6 +99,9 @@ export default function Settings() {
           top: 0,
           behavior: "smooth",
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((error) => {
         setInfo(error.response.data.Errors[0]);
