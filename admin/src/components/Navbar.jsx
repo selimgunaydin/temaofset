@@ -18,7 +18,7 @@ import axios from "axios";
 export default function Navbar() {
   let navigate = useNavigate();
   const { pathname } = useLocation();
-  const { options, getOptions } = generalStore();
+  const { options, getOptions,baseUrl } = generalStore();
   useEffect(() => {
     getOptions();
   }, []);
@@ -38,7 +38,7 @@ export default function Navbar() {
             <img
               src={
                 options &&
-                `http://api.temaofset.online/api/Files/${options.logoImage}`
+                `${baseUrl}/api/Files/${options.logoImage}`
               }
               alt="logo"
               width="175px"

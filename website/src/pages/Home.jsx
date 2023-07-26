@@ -7,7 +7,6 @@ import AboutComponent from "../components/Home/AboutComponent";
 import Categories from "../components/Home/Categories";
 import References from "../components/Home/References";
 import Location from "../components/Home/Location";
-import Showcase from "../components/Home/Showcase";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <HomeCarousel />
       <Categories />
       <AboutComponent happyCustomers={true} />
-      {/* <Showcase/> */}
       <References />
       <Location />
     </motion.div>

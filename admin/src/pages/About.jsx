@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { generalStore } from "../store/generalStore";
 
 export default function About() {
+  const {baseUrl}=generalStore();
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -33,7 +35,7 @@ export default function About() {
 
   useEffect(() => {
     axios
-      .get(`http://api.temaofset.online/api/About`)
+      .get(`${baseUrl}/api/About`)
       .then((response) => {
         setAboutInfo(response.data);
         setAboutTitle(response.data.title);
@@ -58,7 +60,7 @@ export default function About() {
     // var json = JSON.stringify(object);
 
     axios
-      .put("http://api.temaofset.online/api/About", formData, {
+      .put(`${baseUrl}/api/About`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -101,7 +103,7 @@ export default function About() {
 
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/SiteOption/Vision")
+      .get(`${baseUrl}/api/SiteOption/Vision`)
       .then((response) => {
         setVisionData(response.data);
         setVisionId(response.data.id);
@@ -128,7 +130,7 @@ export default function About() {
     // var json = JSON.stringify(object);
 
     axios
-      .put("http://api.temaofset.online/api/SiteOption/Vision", formData, {
+      .put(`${baseUrl}/api/SiteOption/Vision`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -171,7 +173,7 @@ export default function About() {
 
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/Achivements")
+      .get(`${baseUrl}/api/Achivements`)
       .then((response) => {
         setCertifications(response.data);
       })
@@ -182,7 +184,7 @@ export default function About() {
 
   function getCertifications() {
     axios
-      .get("http://api.temaofset.online/api/Achivements")
+      .get(`${baseUrl}/api/Achivements`)
       .then((response) => {
         setCertifications(response.data);
       })
@@ -203,7 +205,7 @@ export default function About() {
     // var json = JSON.stringify(object);
 
     axios
-      .post("http://api.temaofset.online/api/Achivements", formData, {
+      .post(`${baseUrl}/api/Achivements`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -259,7 +261,7 @@ export default function About() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Achivements/${event.target.value}`,{
+          `${baseUrl}/api/Achivements/${event.target.value}`,{
             headers: {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`,
             },
@@ -403,7 +405,7 @@ export default function About() {
                   <img
                     src={
                       aboutImage &&
-                      `http://api.temaofset.online/api/Files/${aboutImage}`
+                      `${baseUrl}/api/Files/${aboutImage}`
                     }
                     alt="logo"
                     width="175px"
@@ -475,7 +477,7 @@ export default function About() {
                     <img
                       src={
                         visionImage &&
-                        `http://api.temaofset.online/api/Files/${visionImage}`
+                        `${baseUrl}/api/Files/${visionImage}`
                       }
                       alt="logo"
                       width="175px"
@@ -518,7 +520,7 @@ export default function About() {
                         key={index}
                       >
                         <img
-                          src={`http://api.temaofset.online/api/Files/${item.image}`}
+                          src={`${baseUrl}/api/Files/${item.image}`}
                           alt=""
                           style={{ objectFit: "contain" }}
                           className="col-12"

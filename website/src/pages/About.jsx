@@ -3,14 +3,17 @@ import AboutComponent from "../components/Home/AboutComponent";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { generalStore } from "../store/generalStore";
+
 export default function About() {
   const [visionData, setVisionData] = useState();
   const [certifications, setCertifications] = useState();
+  const {baseUrl}=generalStore();
+  
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/SiteOption/Vision")
+      .get(`${baseUrl}/api/SiteOption/Vision`)
       .then((response) => {
-        console.log(response.data);
         setVisionData(response.data);
       })
       .catch((error) => {
@@ -20,9 +23,8 @@ export default function About() {
 
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/Achivements")
+      .get(`${baseUrl}/api/Achivements`)
       .then((response) => {
-        console.log(response);
         setCertifications(response.data);
       })
       .catch((error) => {
@@ -43,7 +45,7 @@ export default function About() {
                 <img
                   src={
                     visionData &&
-                    `http://api.temaofset.online/api/Files/${visionData.image}`
+                    `${baseUrl}/api/Files/${visionData.image}`
                   }
                   alt="about-image"
                   className="rounded-3 w-100"
@@ -77,7 +79,7 @@ export default function About() {
                     className="cerification-box col-lg-2 col-5 d-flex flex-column justify-content-center align-items-center mx-3 mb-3"
                   >
                     <img
-                      src={`http://api.temaofset.online/api/Files/${item.image}`}
+                      src={`${baseUrl}/api/Files/${item.image}`}
                       alt="sertifika"
                       className="mb-2"
                       width="175px"

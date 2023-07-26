@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
+import { generalStore } from "./generalStore";
+
 
 export const authStore = create((set) => ({
   authText: null,
@@ -8,7 +10,7 @@ export const authStore = create((set) => ({
   loginFetch: async (uname, password) => {
     try {
       const response = await axios.post(
-        "http://api.temaofset.online/api/Auth/Login",
+        `${generalStore.getState().baseUrl}/api/Auth/Login`,
         {
           username: uname,
           password: password,

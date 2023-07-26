@@ -2,7 +2,7 @@ import React from "react";
 import { generalStore } from "../store/generalStore";
 
 export default function MobileError() {
-  const { options } = generalStore();
+  const { options,baseUrl } = generalStore();
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center my-5">
@@ -13,7 +13,7 @@ export default function MobileError() {
         <img
           src={
             options &&
-            `http://api.temaofset.online/api/Files/${options.logoImage}`
+            `${baseUrl}/api/Files/${options.logoImage}`
           }
           alt="logo"
           width="250px"

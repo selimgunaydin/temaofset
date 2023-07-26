@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Category() {
   const { defination } = useParams();
-  const { categories } = generalStore();
+  const { categories,baseUrl } = generalStore();
   const [products, setProducts] = useState([]);
   const [categoryId, setCategoryId] = useState("");
 
@@ -24,7 +24,7 @@ export default function Category() {
     if (categoryId) {
       axios
         .get(
-          `http://api.temaofset.online/api/Products/categories/${categoryId}`
+          `${baseUrl}/api/Products/categories/${categoryId}`
         )
         .then((response) => {
           setProducts(response.data);
@@ -53,7 +53,7 @@ export default function Category() {
                       products.map((item, index) => (
                         <div className="product-image d-flex justify-content-center col-5 col-lg-2 mx-2 mx-lg-3 mb-4 p-3" key={index}>
                           <img
-                            src={`http://api.temaofset.online/api/Files/${item.productImages[0]}`}
+                            src={`${baseUrl}/api/Files/${item.productImages[0]}`}
                             alt="Ürün"
                             width="150px"
                           />

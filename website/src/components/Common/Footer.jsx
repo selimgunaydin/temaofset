@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { generalStore } from "../../store/generalStore";
 
 export default function Footer() {
-  const { options, categories } = generalStore();
+  const { options, categories,baseUrl } = generalStore();
   return (
     <>
       <div
@@ -16,7 +16,7 @@ export default function Footer() {
                 <img
                   src={
                     options &&
-                    `http://api.temaofset.online/api/Files/${options.logoWhite}`
+                    `${baseUrl}/api/Files/${options.logoWhite}`
                   }
                   alt="logo"
                   height="40px"

@@ -5,8 +5,10 @@ import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { generalStore } from "../store/generalStore";
 
 export default function References() {
+  const {baseUrl}=generalStore();
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -18,7 +20,7 @@ export default function References() {
 
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/Referances")
+      .get(`${baseUrl}/api/Referances`)
       .then((response) => {
         setReferenceImages(response.data);
       })
@@ -29,7 +31,7 @@ export default function References() {
 
   function getReferences() {
     axios
-      .get("http://api.temaofset.online/api/Referances")
+      .get(`${baseUrl}/api/Referances`)
       .then((response) => {
         setReferenceImages(response.data);
       })
@@ -43,7 +45,7 @@ export default function References() {
     const formData = new FormData();
     formData.append("Image", referenceLogo[0]);
     axios
-      .post("http://api.temaofset.online/api/Referances", formData, {
+      .post(`${baseUrl}/api/Referances`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -87,7 +89,7 @@ export default function References() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Referances/${event.target.value}`,{
+          `${baseUrl}/api/Referances/${event.target.value}`,{
             headers: {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`,
             },
@@ -185,7 +187,7 @@ export default function References() {
                   key={index}
                 >
                   <img
-                    src={`http://api.temaofset.online/api/Files/${item.imageUrl}`}
+                    src={`${baseUrl}/api/Files/${item.imageUrl}`}
                     width="100px"
                     height="50px"
                     alt=""

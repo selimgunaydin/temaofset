@@ -5,10 +5,11 @@ export const generalStore = create((set) => ({
   categories: null,
   options: null,
   sliders: null,
+  baseUrl:"http://api.temaofset.online",
 
   getCategories: async () => {
     axios
-      .get(`http://api.temaofset.online/api/Categories`)
+      .get(`${generalStore.getState().baseUrl}/api/Categories`)
       .then((response) => {
         set({ categories: response.data });
       })
@@ -18,7 +19,7 @@ export const generalStore = create((set) => ({
   },
   getSliders: async () => {
     axios
-      .get(`http://api.temaofset.online/api/SiteOption/Slider`)
+      .get(`${generalStore.getState().baseUrl}/api/SiteOption/Slider`)
       .then((response) => {
         set({ sliders: response.data });
         setTimeout(() => {
@@ -31,7 +32,7 @@ export const generalStore = create((set) => ({
   },
   getOptions: async () => {
     axios
-      .get(`http://api.temaofset.online/api/SiteOption`)
+      .get(`${generalStore.getState().baseUrl}/api/SiteOption`)
       .then((response) => {
         set({ options: response.data });
       })

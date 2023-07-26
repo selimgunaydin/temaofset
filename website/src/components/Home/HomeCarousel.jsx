@@ -9,7 +9,7 @@ import preview from "../../assets/img/preview.png";
 import { generalStore } from "../../store/generalStore";
 
 export default function HomeCarousel() {
-  const { sliders } = generalStore();
+  const { sliders,baseUrl } = generalStore();
   const [isVideo, setIsVideo] = useState();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function HomeCarousel() {
                       preload="auto"
                     >
                       <source
-                        src={`http://api.temaofset.online/api/Files/${item.image}`}
+                        src={`${baseUrl}/api/Files/${item.image}`}
                         type="video/mp4"
                       />
                     </video>
@@ -78,7 +78,7 @@ export default function HomeCarousel() {
                     </div>
                     <img
                       className="d-block w-100"
-                      src={`http://api.temaofset.online/api/Files/${item.image}`}
+                      src={`${baseUrl}/api/Files/${item.image}`}
                       alt="Slider Image"
                     />
                     <Carousel.Caption>
@@ -102,7 +102,7 @@ export default function HomeCarousel() {
                     </div>
                     <video autoPlay loop muted playsInline preload="auto">
                       <source
-                        src={`http://api.temaofset.online/api/Files/${item.image}`}
+                        src={`${baseUrl}/api/Files/${item.image}`}
                         type="video/mp4"
                       />
                     </video>
@@ -120,7 +120,7 @@ export default function HomeCarousel() {
                     </div>
                     <img
                       className="d-block w-100"
-                      src={`http://api.temaofset.online/api/Files/${item.image}`}
+                      src={`${baseUrl}/api/Files/${item.image}`}
                       alt="Slider Image"
                     />
                     <Carousel.Caption>

@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
+import { generalStore } from "../store/generalStore";
 
 export default function Products() {
+  const {baseUrl}=generalStore();
   const [categories, setCategories] = useState();
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
@@ -27,7 +29,7 @@ export default function Products() {
 
   useEffect(() => {
     axios
-      .get(`http://api.temaofset.online/api/Categories`)
+      .get(`${baseUrl}/api/Categories`)
       .then((response) => {
         setCategories(response.data);
       
@@ -39,7 +41,7 @@ export default function Products() {
 
   function getCategories() {
     axios
-      .get(`http://api.temaofset.online/api/Categories`)
+      .get(`${baseUrl}/api/Categories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -54,7 +56,7 @@ export default function Products() {
     formData.append("Image", categoryImage[0]);
     formData.append("Defination", categoryDefination);
     axios
-      .post("http://api.temaofset.online/api/Categories", formData, {
+      .post(`${baseUrl}/api/Categories`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -81,7 +83,7 @@ export default function Products() {
     if (window.confirm("Silmek istediğine emin misin?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Categories/${event.target.value}`,{
+          `${baseUrl}/api/Categories/${event.target.value}`,{
             headers: {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`,
             },
@@ -128,7 +130,7 @@ export default function Products() {
     setSelectedCategory(event.target.value);
     axios
       .get(
-        `http://api.temaofset.online/api/Products/categories/${event.target.value}`
+        `${baseUrl}/api/Products/categories/${event.target.value}`
       )
       .then((response) => {
         setProducts(response.data);
@@ -143,11 +145,10 @@ export default function Products() {
     if (selectedCategory) {
       axios
         .get(
-          `http://api.temaofset.online/api/Products/categories/${selectedCategory}`
+          `${baseUrl}/api/Products/categories/${selectedCategory}`
         )
         .then((response) => {
           setProducts(response.data);
-          console.log(products)
         })
         .catch((error) => {
           console.log(error);
@@ -166,7 +167,7 @@ export default function Products() {
     formData.append("ProductName", productTitle);
     formData.append("CategoryId", selectedCategory);
     axios
-      .post("http://api.temaofset.online/api/Products", formData, {
+      .post(`${baseUrl}/api/Products`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -193,7 +194,7 @@ export default function Products() {
     if (window.confirm("Silmek istediğinize emin misiniz?")) {
       axios
         .delete(
-          `http://api.temaofset.online/api/Products/${event.target.value}`,{
+          `${baseUrl}/api/Products/${event.target.value}`,{
             headers: {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`,
             },
@@ -364,7 +365,7 @@ export default function Products() {
                   key={index}
                 >
                   <img
-                    src={`http://api.temaofset.online/api/Files/${item.image}`}
+                    src={`${baseUrl}/api/Files/${item.image}`}
                     alt="karton"
                     width="75px"
                     height="75px"
@@ -412,7 +413,7 @@ export default function Products() {
                     key={index}
                   >
                     <img
-                      src={`http://api.temaofset.online/api/Files/${item.productImages[0]}`}
+                      src={`${baseUrl}/api/Files/${item.productImages[0]}`}
                       alt="karton"
                       width="75px"
                       height="75px"

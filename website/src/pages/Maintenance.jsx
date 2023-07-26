@@ -4,7 +4,7 @@ import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { generalStore } from "../store/generalStore";
 
 export default function Maintenance() {
-  const { options } = generalStore();
+  const { options,baseUrl } = generalStore();
   return (
     <div className="maintenance container">
       <div className="row h-100">
@@ -12,7 +12,7 @@ export default function Maintenance() {
           <img
             src={
               options &&
-              `http://api.temaofset.online/api/Files/${options.logoImage}`
+              `${baseUrl}/api/Files/${options.logoImage}`
             }
             alt="logo"
             height="50px"

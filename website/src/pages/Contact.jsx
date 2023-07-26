@@ -18,7 +18,7 @@ export default function Contact() {
   const [mailDefination, setMailDefination] = useState("");
   const [mailModal, setMailModal] = useState(false);
   const [formAlert, setFormAlert] = useState([]);
-  const { options } = generalStore();
+  const { options,baseUrl } = generalStore();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,7 +36,7 @@ export default function Contact() {
       mailDefination.length >= 1
     ) {
       axios
-        .post(`http://api.temaofset.online/api/SiteOption/sendmail`, mail)
+        .post(`${baseUrl}/api/SiteOption/sendmail`, mail)
         .then((response) => {
           console.log(response);
           setMailModal(true);

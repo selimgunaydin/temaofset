@@ -3,11 +3,15 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { generalStore } from "../../store/generalStore";
+
 
 export default function About(props) {
   const [customerCount, setCustomerCount] = useState(200);
   const [projectCount, setProjectCount] = useState(200);
   const [aboutInfo, setAboutInfo] = useState();
+  const {baseUrl}=generalStore();
+
   useEffect(() => {
     if(projectCount<800){
       setTimeout(() => {
@@ -24,7 +28,7 @@ export default function About(props) {
 
   useEffect(() => {
     axios
-      .get(`http://api.temaofset.online/api/About`)
+      .get(`${baseUrl}/api/About`)
       .then((response) => {
         setAboutInfo(response.data);
       })
@@ -69,7 +73,7 @@ export default function About(props) {
                 <img
                   src={
                     aboutInfo &&
-                    `http://api.temaofset.online/api/Files/${aboutInfo.image}`
+                    `${baseUrl}/api/Files/${aboutInfo.image}`
                   }
                   alt="about-image"
                   className="rounded-3 w-100"

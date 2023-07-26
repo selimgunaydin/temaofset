@@ -4,7 +4,7 @@ import { generalStore } from "../../store/generalStore";
 import { Link } from "react-router-dom";
 
 export default function Categories() {
-  const { categories } = generalStore();
+  const { categories,baseUrl } = generalStore();
   return (
     <>
       <motion.div
@@ -28,7 +28,7 @@ export default function Categories() {
                   key={index}
                 >
                   <img
-                    src={`http://api.temaofset.online/api/Files/${item.image}`}
+                    src={`${baseUrl}/api/Files/${item.image}`}
                     alt="karton"
                     width="75px"
                     height="75px"

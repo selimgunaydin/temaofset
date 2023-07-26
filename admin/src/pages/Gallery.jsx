@@ -7,8 +7,11 @@ import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { generalStore } from "../store/generalStore";
+
 
 export default function Gallery() {
+  const {baseUrl}=generalStore();
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -31,10 +34,9 @@ export default function Gallery() {
 
   useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/SiteOption/Slider")
+      .get(`${baseUrl}/api/SiteOption/Slider`)
       .then((response) => {
         setSliders(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -43,7 +45,7 @@ export default function Gallery() {
 
   function getSliders() {
     axios
-      .get("http://api.temaofset.online/api/SiteOption/Slider")
+      .get(`${baseUrl}/api/SiteOption/Slider`)
       .then((response) => {
         setSliders(response.data);
         console.log(response.data);
@@ -62,7 +64,7 @@ export default function Gallery() {
     formData.append("image", sliderImage[0]);
 
     axios
-      .post("http://api.temaofset.online/api/SiteOption/Slider", formData, {
+      .post(`${baseUrl}/api/SiteOption/Slider`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -121,7 +123,7 @@ export default function Gallery() {
     setEditSliderId(event.target.value);
     axios
       .get(
-        `http://api.temaofset.online/api/SiteOption/Slider/items/${event.target.value}`
+        `${baseUrl}/api/SiteOption/Slider/items/${event.target.value}`
       )
       .then((response) => {
         console.log(response);
@@ -157,7 +159,7 @@ export default function Gallery() {
 
     axios
       .put(
-        "http://api.temaofset.online/api/SiteOption/Slider/items",
+        `${baseUrl}/api/SiteOption/Slider/items`,
         formData,
         {
           headers: {
@@ -196,7 +198,7 @@ export default function Gallery() {
   function handleDelete() {
     axios
       .delete(
-        `http://api.temaofset.online/api/SiteOption/Slider/${editSliderId}`,
+        `${baseUrl}/api/SiteOption/Slider/${editSliderId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("user_token")}`,
@@ -231,7 +233,7 @@ export default function Gallery() {
   function handleSliderListOrder(event) {
     axios
       .put(
-        `http://api.temaofset.online/api/SiteOption/Slider/${selectedItemId}/orderid/${event.target.value}`
+        `${baseUrl}/api/SiteOption/Slider/${selectedItemId}/orderid/${event.target.value}`
       )
       .then((response) => {
         console.log(response);
@@ -354,7 +356,7 @@ export default function Gallery() {
               <img
                 src={
                   editSliderImage &&
-                  `http://api.temaofset.online/api/Files/${editSliderImage}`
+                  `${baseUrl}/api/Files/${editSliderImage}`
                 }
                 alt="logo"
                 width="100px"
@@ -452,7 +454,7 @@ export default function Gallery() {
                     </div>
                     <div className="image col-3 d-flex justify-content-end">
                       <img
-                        src={`http://api.temaofset.online/api/Files/${item.image}`}
+                        src={`${baseUrl}/api/Files/${item.image}`}
                         alt="video"
                         width="100px"
                         className="p-3 border-start"

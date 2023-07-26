@@ -3,12 +3,15 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { generalStore } from "../../store/generalStore";
+
 
 export default function References() {
   const [referenceImages, setReferenceImages] = useState();
-  useEffect(() => {
+  const {baseUrl}=generalStore();
+    useEffect(() => {
     axios
-      .get("http://api.temaofset.online/api/Referances")
+      .get(`${baseUrl}/api/Referances`)
       .then((response) => {
         setReferenceImages(response.data);
       })
@@ -39,7 +42,7 @@ export default function References() {
                       key={index}
                     >
                       <img
-                        src={`http://api.temaofset.online/api/Files/${item.imageUrl}`}
+                        src={`${baseUrl}/api/Files/${item.imageUrl}`}
                         width="100px"
                         alt=""
                       />

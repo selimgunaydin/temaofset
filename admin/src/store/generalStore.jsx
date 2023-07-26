@@ -3,10 +3,11 @@ import { create } from "zustand";
 
 export const generalStore = create((set) => ({
   options: null,
+  baseUrl:"http://api.temaofset.online",
 
   getOptions: async () => {
     axios
-      .get(`http://api.temaofset.online/api/SiteOption`)
+      .get(`${generalStore.getState().baseUrl}/api/SiteOption`)
       .then((response) => {
         set({ options: response.data });
         setTimeout(() => {

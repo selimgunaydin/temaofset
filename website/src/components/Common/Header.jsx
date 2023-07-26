@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 export default function Header() {
-  const { getCategories, categories, options } = generalStore();
+  const { getCategories, categories, options,baseUrl } = generalStore();
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState("");
   const { pathname } = useLocation();
   const [mobileMenuDropdown, setMobileMenuDropdown] = useState("d-none");
@@ -160,7 +160,7 @@ export default function Header() {
                   <img
                     src={
                       options &&
-                      `http://api.temaofset.online/api/Files/${options.logoImage}`
+                      `${baseUrl}/api/Files/${options.logoImage}`
                     }
                     alt="logo"
                     height="50px"
@@ -240,7 +240,7 @@ export default function Header() {
                   <img
                     src={
                       options &&
-                      `http://api.temaofset.online/api/Files/${options.logoImage}`
+                      `${baseUrl}/api/Files/${options.logoImage}`
                     }
                     alt="logo"
                     width="125px"
@@ -270,7 +270,7 @@ export default function Header() {
               <img
                 src={
                   options &&
-                  `http://api.temaofset.online/api/Files/${options.logoWhite}`
+                  `${baseUrl}/api/Files/${options.logoWhite}`
                 }
                 alt="logo"
                 width="150px"

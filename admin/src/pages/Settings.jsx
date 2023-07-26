@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import { generalStore } from "../store/generalStore";
 
 export default function Settings() {
+  const {baseUrl}=generalStore();
   const [info, setInfo] = useState("");
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -19,7 +21,7 @@ export default function Settings() {
   const [isMaintenance, setIsMaintenance] = useState();
   useEffect(() => {
     axios
-      .get(`http://api.temaofset.online/api/SiteOption`)
+      .get(`${baseUrl}/api/SiteOption`)
       .then((response) => {
         setSettings(response.data);
         setLogo(response.data.logoImage);
@@ -50,7 +52,7 @@ export default function Settings() {
     // var json = JSON.stringify(object);
 
     axios
-      .put("http://api.temaofset.online/api/SiteOption", formData, {
+      .put(`${baseUrl}/api/SiteOption`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`,
         },
@@ -79,7 +81,7 @@ export default function Settings() {
     setIsMaintenance(!item);
     axios
       .put(
-        "http://api.temaofset.online/api/SiteOption/Maintenance",
+        `${baseUrl}/api/SiteOption/Maintenance`,
         {
           isMaintenance: maintenanceData,
         },
@@ -209,7 +211,7 @@ export default function Settings() {
                       <img
                         src={
                           settings &&
-                          `http://api.temaofset.online/api/Files/${settings.logoImage}`
+                          `${baseUrl}/api/Files/${settings.logoImage}`
                         }
                         alt="logo"
                         width="100px"
@@ -246,7 +248,7 @@ export default function Settings() {
                       <img
                         src={
                           settings &&
-                          `http://api.temaofset.online/api/Files/${settings.logoWhite}`
+                          `${baseUrl}/api/Files/${settings.logoWhite}`
                         }
                         alt="logo"
                         width="100px"
