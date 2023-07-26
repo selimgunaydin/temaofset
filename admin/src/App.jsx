@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Forbidden from "./pages/Forbidden";
 import NotFound from "./pages/NotFound";
-import { loaderStore } from "./store/generalStore";
+import { generalStore, loaderStore } from "./store/generalStore";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Loader from "./pages/Loader";
@@ -19,6 +19,7 @@ import MobileError from "./pages/MobileError";
 
 function App() {
   const { loader } = loaderStore();
+  const {baseUrl}=generalStore();
   let navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -41,7 +42,7 @@ function App() {
     };
     axios
       .post(
-        "http://api.temaofset.online/api/Auth/RefreshToken",
+        `${baseUrl}/api/Auth/RefreshToken`,
         refreshTokenData
       )
       .then((response) => {

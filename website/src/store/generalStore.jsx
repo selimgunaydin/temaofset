@@ -5,7 +5,7 @@ export const generalStore = create((set) => ({
   categories: null,
   options: null,
   sliders: null,
-  baseUrl:"http://api.temaofset.online",
+  baseUrl:"https://api.temaofset.com",
 
   getCategories: async () => {
     axios

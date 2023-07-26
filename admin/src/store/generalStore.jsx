@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 export const generalStore = create((set) => ({
   options: null,
-  baseUrl:"http://api.temaofset.online",
+    baseUrl:"https://api.temaofset.com",
 
   getOptions: async () => {
     axios
